@@ -1,0 +1,65 @@
+{
+    "name": "TextMagic",
+    "description": "TextMagic is a bulk SMS marketing service provider founded in 2001. Our tools are: Email to SMS, online SMS, Email to SMS Gateway & SMS API. FREE TRIAL!",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/2504-textmagic.jpg",
+    "tags": [
+        "getting started example",
+        "have api",
+        "telecommunications"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/textmagic\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "TextMagic",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/2504-textmagic.jpg",
+            "humanURL": "https:\/\/www.textmagic.com\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-postman-collecction",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/textmagic-postman-collection.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/textmagic"
+        },
+        {
+            "type": "Developers",
+            "url": "http:\/\/api.textmagic.com\/"
+        },
+        {
+            "type": "Email",
+            "url": "support@textmagic.com"
+        },
+        {
+            "type": "Getting Started",
+            "url": "http:\/\/api.textmagic.com\/buy-sms-credits"
+        },
+        {
+            "type": "Pricing",
+            "url": "https:\/\/www.textmagic.com\/sms-pricing\/"
+        },
+        {
+            "type": "Terms of Service",
+            "url": "https:\/\/www.textmagic.com\/terms-of-service\/"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/textmagic"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/www.textmagic.com\/"
+        }
+    ]
+}
