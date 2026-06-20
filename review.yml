@@ -1,0 +1,95 @@
+aid: textmagic
+name: Textmagic
+review:
+  question: Does Textmagic expose a documented public WebSocket or streaming API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. The Textmagic REST API (v2) is a
+    request/response HTTPS interface. There is no documented WebSocket
+    (ws:// or wss://) endpoint and no HTTP Server-Sent Events (SSE) stream.
+    Inbound and event delivery is push-based via configurable HTTP callback
+    (webhook) URLs, which are out of scope for AsyncAPI streaming modeling
+    under current API Evangelist scope.
+findings:
+  summary: |
+    Textmagic does not publish a documented public WebSocket or streaming
+    API. All documented programmatic access is via the REST API (v2) at
+    https://rest.textmagic.com/api/v2, authenticated with the X-TM-Username
+    and X-TM-Key headers. Real-time and inbound events (delivered SMS
+    statuses, inbound replies) are delivered through user-configured HTTP
+    callback URLs (webhooks) managed via /callback/settings, not over a
+    persistent socket. No bidirectional or server-push socket transport is
+    documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://rest.textmagic.com/api/v2
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Inbound replies and delivery statuses are POSTed to a user-configured callback URL; not a persistent socket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Textmagic API reference as of the review date.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events stream is documented.
+  endpointsConfirmedRest:
+    - POST   https://rest.textmagic.com/api/v2/messages
+    - GET    https://rest.textmagic.com/api/v2/messages
+    - GET    https://rest.textmagic.com/api/v2/messages/{id}
+    - DELETE https://rest.textmagic.com/api/v2/messages/{id}
+    - GET    https://rest.textmagic.com/api/v2/messages/search
+    - GET    https://rest.textmagic.com/api/v2/messages/price/normalized
+    - GET    https://rest.textmagic.com/api/v2/replies
+    - GET    https://rest.textmagic.com/api/v2/replies/{id}
+    - GET    https://rest.textmagic.com/api/v2/bulks
+    - GET    https://rest.textmagic.com/api/v2/bulks/{id}
+    - GET    https://rest.textmagic.com/api/v2/chats
+    - GET    https://rest.textmagic.com/api/v2/chats/{id}
+    - GET    https://rest.textmagic.com/api/v2/chats/{id}/messages
+    - POST   https://rest.textmagic.com/api/v2/chats/status
+    - POST   https://rest.textmagic.com/api/v2/contacts/normalized
+    - GET    https://rest.textmagic.com/api/v2/contacts
+    - GET    https://rest.textmagic.com/api/v2/contacts/{id}
+    - PUT    https://rest.textmagic.com/api/v2/contacts/{id}/normalized
+    - DELETE https://rest.textmagic.com/api/v2/contacts/{id}
+    - POST   https://rest.textmagic.com/api/v2/lists
+    - GET    https://rest.textmagic.com/api/v2/lists
+    - GET    https://rest.textmagic.com/api/v2/lists/{id}
+    - PUT    https://rest.textmagic.com/api/v2/lists/{id}/contacts
+    - POST   https://rest.textmagic.com/api/v2/templates
+    - GET    https://rest.textmagic.com/api/v2/templates
+    - GET    https://rest.textmagic.com/api/v2/schedules
+    - GET    https://rest.textmagic.com/api/v2/schedules/{id}
+    - POST   https://rest.textmagic.com/api/v2/senderids
+    - GET    https://rest.textmagic.com/api/v2/senderids
+    - POST   https://rest.textmagic.com/api/v2/numbers
+    - GET    https://rest.textmagic.com/api/v2/numbers/available
+    - GET    https://rest.textmagic.com/api/v2/user
+    - GET    https://rest.textmagic.com/api/v2/stats/spending
+    - GET    https://rest.textmagic.com/api/v2/ping
+sources:
+  - url: https://docs.textmagic.com/
+    type: APIReference
+    note: REST reference; all documented operations are HTTPS request/response. No WebSocket.
+  - url: https://www.textmagic.com/docs/api/start/
+    type: Documentation
+    note: Getting started; base URL https://rest.textmagic.com/api/v2 with X-TM-Username and X-TM-Key headers.
+  - url: https://www.textmagic.com/docs/api/send-sms/
+    type: Documentation
+    note: Send SMS guide; POST to /messages. No streaming transport.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE streaming surface exists. Event delivery is via
+    user-configured HTTP callback (webhook) URLs, which are not modeled as
+    AsyncAPI streaming under current scope, so no AsyncAPI document was
+    authored.

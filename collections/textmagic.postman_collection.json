@@ -1,0 +1,285 @@
+{
+  "info": {
+    "name": "Textmagic REST API",
+    "description": "Textmagic REST API (v2) collection covering messages, replies, bulk sessions, chats, contacts, lists, templates, scheduled messages, sender IDs, dedicated numbers, and account stats. Authenticated with X-TM-Username and X-TM-Key headers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://rest.textmagic.com/api/v2", "type": "string" },
+    { "key": "username", "value": "", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "Send a message",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "text", "value": "Hello from Textmagic" },
+                { "key": "phones", "value": "+19998887766" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/messages", "host": ["{{baseUrl}}"], "path": ["messages"] }
+          }
+        },
+        {
+          "name": "Get all messages",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/messages?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["messages"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get a single message",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/messages/:id", "host": ["{{baseUrl}}"], "path": ["messages", ":id"] }
+          }
+        },
+        {
+          "name": "Check message price",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/messages/price/normalized?text=Hello&phones=+19998887766",
+              "host": ["{{baseUrl}}"],
+              "path": ["messages", "price", "normalized"],
+              "query": [
+                { "key": "text", "value": "Hello" },
+                { "key": "phones", "value": "+19998887766" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Replies",
+      "item": [
+        {
+          "name": "Get all inbound messages",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/replies", "host": ["{{baseUrl}}"], "path": ["replies"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bulk",
+      "item": [
+        {
+          "name": "Get all bulk sessions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/bulks", "host": ["{{baseUrl}}"], "path": ["bulks"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chats",
+      "item": [
+        {
+          "name": "Get all chats",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/chats", "host": ["{{baseUrl}}"], "path": ["chats"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contacts",
+      "item": [
+        {
+          "name": "Add a new contact",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"+19998887766\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"lists\": \"123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/contacts/normalized", "host": ["{{baseUrl}}"], "path": ["contacts", "normalized"] }
+          }
+        },
+        {
+          "name": "Get all contacts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/contacts", "host": ["{{baseUrl}}"], "path": ["contacts"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lists",
+      "item": [
+        {
+          "name": "Get all lists",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/lists", "host": ["{{baseUrl}}"], "path": ["lists"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Templates",
+      "item": [
+        {
+          "name": "Get all templates",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/templates", "host": ["{{baseUrl}}"], "path": ["templates"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Schedules",
+      "item": [
+        {
+          "name": "Get all scheduled messages",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/schedules", "host": ["{{baseUrl}}"], "path": ["schedules"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sender IDs",
+      "item": [
+        {
+          "name": "Get all approved Sender IDs",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/senderids", "host": ["{{baseUrl}}"], "path": ["senderids"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Numbers",
+      "item": [
+        {
+          "name": "Find available dedicated numbers",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/numbers/available?country=US",
+              "host": ["{{baseUrl}}"],
+              "path": ["numbers", "available"],
+              "query": [{ "key": "country", "value": "US" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stats",
+      "item": [
+        {
+          "name": "Get current account information",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/user", "host": ["{{baseUrl}}"], "path": ["user"] }
+          }
+        },
+        {
+          "name": "Ping",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-TM-Username", "value": "{{username}}" },
+              { "key": "X-TM-Key", "value": "{{apiKey}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/ping", "host": ["{{baseUrl}}"], "path": ["ping"] }
+          }
+        }
+      ]
+    }
+  ]
+}

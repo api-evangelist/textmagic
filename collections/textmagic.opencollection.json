@@ -1,0 +1,278 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Textmagic REST API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "in": "header",
+      "key": "X-TM-Username",
+      "value": "{{username}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rest.textmagic.com/api/v2/messages",
+            "body": {
+              "type": "form-urlencoded",
+              "data": "text=Hello+from+Textmagic&phones=%2B19998887766"
+            }
+          },
+          "docs": "Send a new outbound message to one or more phone numbers, contacts, or lists."
+        },
+        {
+          "info": {
+            "name": "Get all messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/messages"
+          },
+          "docs": "Get a paginated list of outbound messages."
+        },
+        {
+          "info": {
+            "name": "Check message price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/messages/price/normalized"
+          },
+          "docs": "Estimate the price and part count of a message before sending."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Replies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all inbound messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/replies"
+          },
+          "docs": "Get a paginated list of inbound messages."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Bulk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all bulk sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/bulks"
+          },
+          "docs": "Get a paginated list of bulk send sessions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Chats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all chats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/chats"
+          },
+          "docs": "Get a paginated list of two-way conversations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a new contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rest.textmagic.com/api/v2/contacts/normalized",
+            "body": {
+              "type": "json",
+              "data": "{\"phone\":\"+19998887766\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"lists\":\"123\"}"
+            }
+          },
+          "docs": "Add a new contact to the address book."
+        },
+        {
+          "info": {
+            "name": "Get all contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/contacts"
+          },
+          "docs": "Get a paginated list of contacts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/lists"
+          },
+          "docs": "Get a paginated list of contact lists."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/templates"
+          },
+          "docs": "Get a paginated list of message templates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all scheduled messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/schedules"
+          },
+          "docs": "Get a paginated list of scheduled messages."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sender IDs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all approved Sender IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/senderids"
+          },
+          "docs": "Get a paginated list of approved alphanumeric sender IDs."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Numbers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find available dedicated numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/numbers/available"
+          },
+          "docs": "Find dedicated virtual numbers available for purchase."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current account information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/user"
+          },
+          "docs": "Get the current account, including balance and currency."
+        },
+        {
+          "info": {
+            "name": "Ping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/ping"
+          },
+          "docs": "Health-check endpoint that confirms credentials are valid."
+        }
+      ]
+    }
+  ]
+}

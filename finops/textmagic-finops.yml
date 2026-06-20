@@ -1,0 +1,103 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Textmagic
+providerId: textmagic
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- SMS
+- Text Messaging
+- Messaging
+- Communications
+- CPaaS
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Textmagic spend. Textmagic uses a prepaid credit model billed
+  per message segment for SMS and per email beyond a free allowance, plus
+  recurring monthly fees for dedicated virtual numbers, 10DLC campaign
+  registration, and alphanumeric sender IDs. Per-message rates vary by
+  destination country and by whether messages are sent through a connected
+  CPaaS provider. Unused credit is fully refundable.
+notes: >-
+  Per-message and per-number rates are subject to change and vary by country;
+  verify against the Textmagic pricing page during reconciliation.
+sources:
+- https://www.textmagic.com/pricing/
+- https://docs.textmagic.com/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Textmagic
+serviceCategory: Communications
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Prepaid
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Textmagic
+  ServiceCategory: Communications
+  ProviderName: Textmagic
+  PublisherName: Textmagic
+  InvoiceIssuerName: Textmagic
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: sms_segments
+  description: Outbound SMS message segments (160 plain-text characters), billed per segment by destination country.
+  unit: messages
+  aggregation: sum
+  dimensions:
+  - account
+  - country
+  - sender
+- name: email_messages
+  description: Outbound emails billed per email beyond the free allowance.
+  unit: emails
+  aggregation: sum
+  dimensions:
+  - account
+- name: virtual_number_months
+  description: Recurring monthly subscription for dedicated virtual numbers.
+  unit: number_months
+  aggregation: sum
+  dimensions:
+  - account
+  - country
+- name: campaign_registration_months
+  description: Recurring monthly fee for 10DLC campaign registration and alphanumeric sender IDs.
+  unit: campaign_months
+  aggregation: sum
+  dimensions:
+  - account
+  - campaign
+- name: prepaid_credit
+  description: Prepaid credit purchased and consumed across services; unused credit is refundable.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Pull spending statistics via /stats/spending and account balance via /user to track credit burn.
+- name: Allocation
+  description: Tag sends by list, template, and sender to map message spend to campaigns and cost centers.
+- name: Optimization
+  description: Use a connected CPaaS provider for lower per-SMS rates; batch via bulk sessions; reuse templates; release unused virtual numbers and campaigns.
+- name: Accountability
+  description: Set balance notification thresholds; review prepaid credit consumption and recurring number/campaign fees monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

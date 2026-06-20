@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Textmagic
+providerId: textmagic
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- SMS
+- Text Messaging
+- Messaging
+- Communications
+- CPaaS
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Textmagic REST API (v2) applies per-account request throttling to protect
+  platform stability. Specific per-endpoint request-per-second or request-per-
+  minute ceilings are not published in the public documentation, so the values
+  here are placeholders pending reconciliation. Bulk and high-volume sends are
+  expected to be performed through bulk sessions rather than rapid single-message
+  loops. Outbound message throughput is additionally governed by carrier and
+  sender-type (10DLC, toll-free, alphanumeric) deliverability rules.
+notes: >-
+  Confirm exact request-rate ceilings, retry semantics, and any Retry-After or
+  X-RateLimit response headers with Textmagic support or the API reference at
+  reconciliation; values change by account and sender registration.
+sources:
+- https://docs.textmagic.com/
+- https://www.textmagic.com/docs/api/start/
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Per-account request throttling on the REST API; exact ceiling not published.
+- name: Outbound Message Throughput
+  scope: account
+  metric: messages
+  limit: see provider documentation
+  notes: Governed by sender type and carrier rules (10DLC, toll-free, alphanumeric).
+- name: Bulk Sessions
+  scope: account
+  metric: jobs
+  limit: separate from single-message sends
+  notes: Large sends should use bulk sessions rather than rapid single-message loops.
+policies:
+- name: Use Bulk Sessions
+  description: Submit large campaigns via bulk send to avoid per-request throttling on single-message endpoints.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor any Retry-After header on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

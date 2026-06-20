@@ -1,0 +1,157 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Textmagic
+providerId: textmagic
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- SMS
+- Text Messaging
+- Messaging
+- Communications
+- CPaaS
+- Plans
+description: >-
+  Textmagic uses a prepaid, pay-as-you-go credit model rather than monthly
+  software subscriptions. Customers buy credit once and spend it across SMS,
+  email, virtual numbers, and other services, with a 100% refund on unused
+  credit. SMS is billed per message segment (160 plain-text characters), with
+  a discounted rate when sending through a connected CPaaS provider. Virtual
+  numbers, 10DLC campaign registration, and alphanumeric sender IDs carry
+  recurring monthly fees. A free trial credit is available with no credit card.
+notes: >-
+  Representative US rates as published on the Textmagic pricing page; per-message
+  rates vary by destination country and the connected provider. Verify the
+  current rates and country list on the pricing page during reconciliation.
+sources:
+- https://www.textmagic.com/pricing/
+- https://www.textmagic.com/
+plans:
+- id: textmagic-pay-as-you-go
+  name: Pay-as-you-go
+  type: usage
+  description: >-
+    Prepaid credit spent per message and per service, with no monthly
+    minimum and a full refund on unused balance.
+  entries:
+  - label: Outbound SMS (US, standard)
+    name: sms_us_standard
+    type: usage
+    metric: messages
+    limit: -1
+    timeFrame: month
+    geo: US
+    unit: 1
+    price: $0.049 per SMS (160 plain-text characters)
+    userMultiplied: false
+  - label: Outbound SMS (US, connected CPaaS provider)
+    name: sms_us_cpaas
+    type: usage
+    metric: messages
+    limit: -1
+    timeFrame: month
+    geo: US
+    unit: 1
+    price: $0.01 per SMS via connected providers (Twilio, Vonage, Sinch, Bandwidth)
+    userMultiplied: false
+  - label: Outbound Email
+    name: email
+    type: usage
+    metric: emails
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: First 10,000 emails free, then $0.006 per email
+    userMultiplied: false
+  elements:
+  - name: Messages
+  - name: Bulk Messaging
+  - name: Chats and Replies
+  - name: Templates
+  - name: Scheduled Messages
+- id: textmagic-numbers
+  name: Virtual Numbers and Campaigns
+  type: subscription
+  description: >-
+    Recurring monthly fees for dedicated virtual numbers and the campaign
+    registration required for US local-number and branded-sender messaging.
+  entries:
+  - label: Dedicated Virtual Number
+    name: virtual_number
+    type: flat
+    metric: number
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $10 per number per month (free for first month)
+    userMultiplied: false
+  - label: 10DLC Campaign Registration
+    name: campaign_10dlc
+    type: flat
+    metric: campaign
+    limit: -1
+    timeFrame: month
+    geo: US
+    unit: 1
+    price: $10 per campaign per month (free for first month)
+    userMultiplied: false
+  - label: Alphanumeric Sender ID
+    name: alphanumeric_sender_id
+    type: flat
+    metric: campaign
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $10 per campaign per month (free for first month)
+    userMultiplied: false
+  elements:
+  - name: Dedicated Numbers
+  - name: Sender IDs
+- id: textmagic-trial
+  name: Free Trial
+  type: free
+  description: >-
+    New accounts receive free credit for testing with no credit card
+    required.
+  entries:
+  - label: Trial Credit
+    name: trial_credit
+    type: free
+    metric: credit
+    limit: 0
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free trial credit, no credit card required
+    userMultiplied: false
+  elements:
+  - name: Messages
+  - name: Contacts and Lists
+- id: textmagic-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Volume pricing, dedicated onboarding, and negotiated terms for high-volume
+    senders. Contact Textmagic sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Volume SMS Pricing
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
