@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/textmagic-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: TmUsername
+  type: apiKey
+  in: header
+  parameter: X-TM-Username
+  description: Your Textmagic account username.
+  sources:
+  - openapi/textmagic-openapi.yml
+- name: TmKey
+  type: apiKey
+  in: header
+  parameter: X-TM-Key
+  description: Your Textmagic API key, generated in the account settings.
+  sources:
+  - openapi/textmagic-openapi.yml

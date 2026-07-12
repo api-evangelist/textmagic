@@ -170,6 +170,12 @@ apis:
   description: Apply for and manage alphanumeric sender IDs, find and purchase dedicated
     virtual numbers, and configure sender settings and available sources.
 common:
+- type: DomainSecurity
+  url: security/textmagic-domain-security.yml
+- type: Authentication
+  url: authentication/textmagic-authentication.yml
+- url: https://www.textmagic.com/blog/feed/
+  type: Blog
 - type: GitHubOrganization
   url: https://github.com/textmagic
 - type: LinkedIn
