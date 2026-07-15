@@ -170,6 +170,8 @@ apis:
   description: Apply for and manage alphanumeric sender IDs, find and purchase dedicated
     virtual numbers, and configure sender settings and available sources.
 common:
+- type: AgenticAccess
+  url: agentic-access/textmagic-agentic-access.yml
 - type: DomainSecurity
   url: security/textmagic-domain-security.yml
 - type: Authentication
