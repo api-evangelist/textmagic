@@ -1,0 +1,140 @@
+openapi: 3.0.1
+info:
+  title: Textmagic REST Bulk Stats API
+  description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
+  termsOfService: https://www.textmagic.com/terms-of-service/
+  contact:
+    name: Textmagic Support
+    email: support@textmagic.com
+    url: https://docs.textmagic.com/
+  version: '2.0'
+servers:
+- url: https://rest.textmagic.com/api/v2
+security:
+- TmUsername: []
+  TmKey: []
+tags:
+- name: Stats
+  description: Account, usage, and spending statistics.
+paths:
+  /user:
+    get:
+      operationId: getUser
+      tags:
+      - Stats
+      summary: Get current account information
+      responses:
+        '200':
+          description: The current account, including balance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /stats/spending:
+    get:
+      operationId: getSpendingStats
+      tags:
+      - Stats
+      summary: Get spending statistics
+      parameters:
+      - name: start
+        in: query
+        schema:
+          type: integer
+        description: Start timestamp (Unix).
+      - name: end
+        in: query
+        schema:
+          type: integer
+        description: End timestamp (Unix).
+      responses:
+        '200':
+          description: Spending statistics for the requested period.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpendingStats'
+  /ping:
+    get:
+      operationId: ping
+      tags:
+      - Stats
+      summary: Ping
+      description: Health-check endpoint that confirms credentials are valid.
+      responses:
+        '200':
+          description: Service is reachable.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ping:
+                    type: string
+                    example: pong
+components:
+  schemas:
+    Currency:
+      type: object
+      properties:
+        id:
+          type: string
+        htmlSymbol:
+          type: string
+    SpendingStats:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              date:
+                type: string
+                format: date-time
+              balance:
+                type: number
+              delta:
+                type: number
+              type:
+                type: string
+              value:
+                type: number
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        balance:
+          type: number
+        currency:
+          $ref: '#/components/schemas/Currency'
+        timezone:
+          type: object
+        email:
+          type: string
+  securitySchemes:
+    TmUsername:
+      type: apiKey
+      in: header
+      name: X-TM-Username
+      description: Your Textmagic account username.
+    TmKey:
+      type: apiKey
+      in: header
+      name: X-TM-Key
+      description: Your Textmagic API key, generated in the account settings.

@@ -1,0 +1,292 @@
+openapi: 3.0.1
+info:
+  title: Textmagic REST Bulk Messages API
+  description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
+  termsOfService: https://www.textmagic.com/terms-of-service/
+  contact:
+    name: Textmagic Support
+    email: support@textmagic.com
+    url: https://docs.textmagic.com/
+  version: '2.0'
+servers:
+- url: https://rest.textmagic.com/api/v2
+security:
+- TmUsername: []
+  TmKey: []
+tags:
+- name: Messages
+  description: Send and manage outbound SMS messages.
+paths:
+  /messages:
+    get:
+      operationId: getMessages
+      tags:
+      - Messages
+      summary: Get all outbound messages
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of outbound messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+    post:
+      operationId: sendMessage
+      tags:
+      - Messages
+      summary: Send a message
+      description: Send a new outbound message to one or more phone numbers, contacts, or lists. Returns the created message or session identifiers.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '201':
+          description: The message was accepted for delivery.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /messages/{id}:
+    get:
+      operationId: getMessage
+      tags:
+      - Messages
+      summary: Get a single message
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single outbound message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMessage
+      tags:
+      - Messages
+      summary: Delete a message
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The message was deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /messages/search:
+    get:
+      operationId: searchMessages
+      tags:
+      - Messages
+      summary: Find messages by criteria
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      - name: query
+        in: query
+        schema:
+          type: string
+        description: Free-text search query.
+      responses:
+        '200':
+          description: Matching outbound messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+  /messages/price/normalized:
+    get:
+      operationId: getMessagePrice
+      tags:
+      - Messages
+      summary: Check message price
+      parameters:
+      - name: text
+        in: query
+        schema:
+          type: string
+        description: Message body to be priced.
+      - name: phones
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of E.164 phone numbers.
+      responses:
+        '200':
+          description: Estimated price and part count for the message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagePrice'
+components:
+  schemas:
+    MessagePrice:
+      type: object
+      properties:
+        total:
+          type: number
+        parts:
+          type: integer
+        countries:
+          type: object
+    SendMessageResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
+        type:
+          type: string
+          description: Either "message", "session", or "scheduled".
+        sessionId:
+          type: integer
+        bulkId:
+          type: integer
+        messageId:
+          type: integer
+        scheduleId:
+          type: integer
+    SendMessageRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          description: The message body.
+        phones:
+          type: string
+          description: Comma-separated list of E.164 phone numbers.
+        templateId:
+          type: integer
+          description: Optional template to use instead of text.
+        contacts:
+          type: string
+          description: Comma-separated list of contact IDs.
+        lists:
+          type: string
+          description: Comma-separated list of list IDs.
+        from:
+          type: string
+          description: Sender ID or dedicated number to send from.
+        sendingTime:
+          type: integer
+          description: Optional Unix timestamp to schedule the message.
+      required:
+      - text
+    MessageList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        receiver:
+          type: string
+        messageTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+        text:
+          type: string
+        charset:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        country:
+          type: string
+        sender:
+          type: string
+        price:
+          type: number
+        partsCount:
+          type: integer
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+  responses:
+    Unauthorized:
+      description: Missing or invalid API credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    TmUsername:
+      type: apiKey
+      in: header
+      name: X-TM-Username
+      description: Your Textmagic account username.
+    TmKey:
+      type: apiKey
+      in: header
+      name: X-TM-Key
+      description: Your Textmagic API key, generated in the account settings.

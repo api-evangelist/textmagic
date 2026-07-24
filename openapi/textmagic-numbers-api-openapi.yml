@@ -1,0 +1,213 @@
+openapi: 3.0.1
+info:
+  title: Textmagic REST Bulk Numbers API
+  description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
+  termsOfService: https://www.textmagic.com/terms-of-service/
+  contact:
+    name: Textmagic Support
+    email: support@textmagic.com
+    url: https://docs.textmagic.com/
+  version: '2.0'
+servers:
+- url: https://rest.textmagic.com/api/v2
+security:
+- TmUsername: []
+  TmKey: []
+tags:
+- name: Numbers
+  description: Find and manage dedicated virtual numbers.
+paths:
+  /numbers:
+    get:
+      operationId: getNumbers
+      tags:
+      - Numbers
+      summary: Get all your dedicated numbers
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of dedicated numbers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NumberList'
+    post:
+      operationId: buyNumber
+      tags:
+      - Numbers
+      summary: Buy a dedicated number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyNumberRequest'
+      responses:
+        '201':
+          description: The dedicated number was purchased.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+  /numbers/available:
+    get:
+      operationId: getAvailableNumbers
+      tags:
+      - Numbers
+      summary: Find dedicated numbers available for purchase
+      parameters:
+      - name: country
+        in: query
+        schema:
+          type: string
+        description: Two-letter ISO country code.
+      responses:
+        '200':
+          description: Available dedicated numbers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableNumbers'
+  /numbers/{id}:
+    get:
+      operationId: getNumber
+      tags:
+      - Numbers
+      summary: Get the details of a specific dedicated number
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single dedicated number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Number'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: cancelNumber
+      tags:
+      - Numbers
+      summary: Cancel a dedicated number subscription
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The dedicated number subscription was cancelled.
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+  schemas:
+    AvailableNumbers:
+      type: object
+      properties:
+        numbers:
+          type: array
+          items:
+            type: string
+        price:
+          type: number
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    BuyNumberRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+        country:
+          type: string
+      required:
+      - phone
+      - country
+    NumberList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Number'
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
+    Number:
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        purchasedAt:
+          type: string
+          format: date-time
+        expireAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    TmUsername:
+      type: apiKey
+      in: header
+      name: X-TM-Username
+      description: Your Textmagic account username.
+    TmKey:
+      type: apiKey
+      in: header
+      name: X-TM-Key
+      description: Your Textmagic API key, generated in the account settings.

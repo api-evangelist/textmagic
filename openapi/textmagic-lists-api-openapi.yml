@@ -1,0 +1,289 @@
+openapi: 3.0.1
+info:
+  title: Textmagic REST Bulk Lists API
+  description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
+  termsOfService: https://www.textmagic.com/terms-of-service/
+  contact:
+    name: Textmagic Support
+    email: support@textmagic.com
+    url: https://docs.textmagic.com/
+  version: '2.0'
+servers:
+- url: https://rest.textmagic.com/api/v2
+security:
+- TmUsername: []
+  TmKey: []
+tags:
+- name: Lists
+  description: Manage contact lists.
+paths:
+  /lists:
+    get:
+      operationId: getLists
+      tags:
+      - Lists
+      summary: Get all lists
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of contact lists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListList'
+    post:
+      operationId: createList
+      tags:
+      - Lists
+      summary: Create a new list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListRequest'
+      responses:
+        '201':
+          description: The created list's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+  /lists/{id}:
+    get:
+      operationId: getList
+      tags:
+      - Lists
+      summary: Get the details of a specific list
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single contact list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListEntity'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateList
+      tags:
+      - Lists
+      summary: Edit a list
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListRequest'
+      responses:
+        '200':
+          description: The updated list's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+    delete:
+      operationId: deleteList
+      tags:
+      - Lists
+      summary: Delete a list
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The list was deleted.
+  /lists/{id}/contacts:
+    get:
+      operationId: getListContacts
+      tags:
+      - Lists
+      summary: Get all contacts in a list
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Contacts that belong to the list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactList'
+    put:
+      operationId: assignContactsToList
+      tags:
+      - Lists
+      summary: Assign contacts to a list
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListContactsRequest'
+      responses:
+        '204':
+          description: Contacts were assigned to the list.
+    delete:
+      operationId: unassignContactsFromList
+      tags:
+      - Lists
+      summary: Unassign contacts from a list
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: Contacts were unassigned from the list.
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+  schemas:
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        companyName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
+        blocked:
+          type: boolean
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    ContactListList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
+    ListRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        shared:
+          type: boolean
+      required:
+      - name
+    ContactList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+    ContactListEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        membersCount:
+          type: integer
+        shared:
+          type: boolean
+    ListContactsRequest:
+      type: object
+      properties:
+        contacts:
+          type: string
+          description: Comma-separated list of contact IDs.
+      required:
+      - contacts
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    TmUsername:
+      type: apiKey
+      in: header
+      name: X-TM-Username
+      description: Your Textmagic account username.
+    TmKey:
+      type: apiKey
+      in: header
+      name: X-TM-Key
+      description: Your Textmagic API key, generated in the account settings.

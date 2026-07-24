@@ -1,0 +1,132 @@
+openapi: 3.0.1
+info:
+  title: Textmagic REST Bulk API
+  description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
+  termsOfService: https://www.textmagic.com/terms-of-service/
+  contact:
+    name: Textmagic Support
+    email: support@textmagic.com
+    url: https://docs.textmagic.com/
+  version: '2.0'
+servers:
+- url: https://rest.textmagic.com/api/v2
+security:
+- TmUsername: []
+  TmKey: []
+tags:
+- name: Bulk
+  description: Track bulk send sessions.
+paths:
+  /bulks:
+    get:
+      operationId: getBulkSessions
+      tags:
+      - Bulk
+      summary: Get all bulk sessions
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of bulk sessions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkSessionList'
+  /bulks/{id}:
+    get:
+      operationId: getBulkSession
+      tags:
+      - Bulk
+      summary: Get bulk session status
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Status of a single bulk session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkSession'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    BulkSessionList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkSession'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+    BulkSession:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+        itemsProcessed:
+          type: integer
+        numbersCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        text:
+          type: string
+  securitySchemes:
+    TmUsername:
+      type: apiKey
+      in: header
+      name: X-TM-Username
+      description: Your Textmagic account username.
+    TmKey:
+      type: apiKey
+      in: header
+      name: X-TM-Key
+      description: Your Textmagic API key, generated in the account settings.

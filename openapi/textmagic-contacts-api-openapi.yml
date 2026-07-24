@@ -1,0 +1,263 @@
+openapi: 3.0.1
+info:
+  title: Textmagic REST Bulk Contacts API
+  description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
+  termsOfService: https://www.textmagic.com/terms-of-service/
+  contact:
+    name: Textmagic Support
+    email: support@textmagic.com
+    url: https://docs.textmagic.com/
+  version: '2.0'
+servers:
+- url: https://rest.textmagic.com/api/v2
+security:
+- TmUsername: []
+  TmKey: []
+tags:
+- name: Contacts
+  description: Manage contacts in the address book.
+paths:
+  /contacts:
+    get:
+      operationId: getContacts
+      tags:
+      - Contacts
+      summary: Get all contacts
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of contacts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactList'
+  /contacts/normalized:
+    post:
+      operationId: createContact
+      tags:
+      - Contacts
+      summary: Add a new contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+      responses:
+        '201':
+          description: The created contact's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /contacts/{id}:
+    get:
+      operationId: getContact
+      tags:
+      - Contacts
+      summary: Get the details of a specific contact
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single contact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteContact
+      tags:
+      - Contacts
+      summary: Delete a contact
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The contact was deleted.
+  /contacts/{id}/normalized:
+    put:
+      operationId: updateContact
+      tags:
+      - Contacts
+      summary: Edit a contact
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+      responses:
+        '200':
+          description: The updated contact's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+  /contacts/search:
+    get:
+      operationId: searchContacts
+      tags:
+      - Contacts
+      summary: Find contacts by given criteria
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      - name: query
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Matching contacts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactList'
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+  schemas:
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        companyName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
+        blocked:
+          type: boolean
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    ContactRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        companyName:
+          type: string
+        lists:
+          type: string
+          description: Comma-separated list of list IDs to assign the contact to.
+      required:
+      - phone
+      - lists
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
+    ContactList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+    ContactListEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        membersCount:
+          type: integer
+        shared:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+  responses:
+    BadRequest:
+      description: The request was malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    TmUsername:
+      type: apiKey
+      in: header
+      name: X-TM-Username
+      description: Your Textmagic account username.
+    TmKey:
+      type: apiKey
+      in: header
+      name: X-TM-Key
+      description: Your Textmagic API key, generated in the account settings.

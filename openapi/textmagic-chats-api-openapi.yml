@@ -1,0 +1,260 @@
+openapi: 3.0.1
+info:
+  title: Textmagic REST Bulk Chats API
+  description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
+  termsOfService: https://www.textmagic.com/terms-of-service/
+  contact:
+    name: Textmagic Support
+    email: support@textmagic.com
+    url: https://docs.textmagic.com/
+  version: '2.0'
+servers:
+- url: https://rest.textmagic.com/api/v2
+security:
+- TmUsername: []
+  TmKey: []
+tags:
+- name: Chats
+  description: Manage two-way conversations.
+paths:
+  /chats:
+    get:
+      operationId: getChats
+      tags:
+      - Chats
+      summary: Get all chats
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of chats.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatList'
+  /chats/{id}:
+    get:
+      operationId: getChat
+      tags:
+      - Chats
+      summary: Get a single chat
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single chat.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chat'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /chats/{id}/messages:
+    get:
+      operationId: getChatMessages
+      tags:
+      - Chats
+      summary: Get chat messages
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Messages within a chat.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+  /chats/status:
+    post:
+      operationId: updateChatStatus
+      tags:
+      - Chats
+      summary: Change chat status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatStatusRequest'
+      responses:
+        '204':
+          description: The chat status was updated.
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+  schemas:
+    ChatStatusRequest:
+      type: object
+      properties:
+        ids:
+          type: string
+          description: Comma-separated list of chat IDs.
+        status:
+          type: string
+          description: Target status, e.g. open or closed.
+      required:
+      - ids
+      - status
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        companyName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
+        blocked:
+          type: boolean
+    ChatList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    MessageList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    Chat:
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        contact:
+          $ref: '#/components/schemas/Contact'
+        unread:
+          type: integer
+        status:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    ContactListEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        membersCount:
+          type: integer
+        shared:
+          type: boolean
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        receiver:
+          type: string
+        messageTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+        text:
+          type: string
+        charset:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        country:
+          type: string
+        sender:
+          type: string
+        price:
+          type: number
+        partsCount:
+          type: integer
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    TmUsername:
+      type: apiKey
+      in: header
+      name: X-TM-Username
+      description: Your Textmagic account username.
+    TmKey:
+      type: apiKey
+      in: header
+      name: X-TM-Key
+      description: Your Textmagic API key, generated in the account settings.
