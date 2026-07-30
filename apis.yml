@@ -6,7 +6,20 @@ description: Textmagic is a business text-messaging platform offering two-way SM
   bulk messaging, SMS marketing, and team inboxes. Its REST API (v2) lets developers
   send and receive messages, manage contacts and lists, schedule and template messages,
   and administer sender IDs and dedicated numbers programmatically over HTTPS.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: open
+  trial: true
+  try_now: true
+  public: true
+  label: Freemium (free trial) · Open access
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/textmagic.png
 tags:
 - SMS
 - Text Messaging
@@ -17,158 +30,226 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: textmagic:textmagic-messages-api
-  name: Textmagic Messages API
-  tags:
-  - Messages
-  - SMS
-  - Send
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: textmagic:textmagic-bulk-api
+  name: Textmagic Bulk API
+  description: Track bulk send sessions.
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
-  properties:
-  - url: https://www.textmagic.com/docs/api/send-sms/
-    type: Documentation
-  - url: https://docs.textmagic.com/
-    type: APIReference
-  - url: openapi/textmagic-openapi.yml
-    type: OpenAPI
-  - url: collections/textmagic.postman_collection.json
-    type: PostmanCollection
-  - url: collections/textmagic.opencollection.json
-    type: OpenCollection
-  description: Send single or templated SMS messages, list and search sent messages,
-    preview and price messages, upload attachments, and delete outbound messages.
-- aid: textmagic:textmagic-bulk-api
-  name: Textmagic Bulk Messaging API
   tags:
   - Bulk
-  - Sessions
-  - Campaigns
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-bulk-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-chats-api
+  name: Textmagic Chats API
+  description: Manage two-way conversations.
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
-  properties:
-  - url: https://docs.textmagic.com/
-    type: Documentation
-  - url: https://docs.textmagic.com/
-    type: APIReference
-  - url: openapi/textmagic-openapi.yml
-    type: OpenAPI
-  - url: collections/textmagic.postman_collection.json
-    type: PostmanCollection
-  - url: collections/textmagic.opencollection.json
-    type: OpenCollection
-  description: Track large send operations through bulk sessions and messaging sessions,
-    retrieve session status, statistics, and the messages each session generated.
-- aid: textmagic:textmagic-chats-replies-api
-  name: Textmagic Chats and Replies API
   tags:
   - Chats
-  - Replies
-  - Inbound
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-chats-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-contacts-api
+  name: Textmagic Contacts API
+  description: Manage contacts in the address book.
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
-  properties:
-  - url: https://docs.textmagic.com/
-    type: Documentation
-  - url: https://docs.textmagic.com/
-    type: APIReference
-  - url: openapi/textmagic-openapi.yml
-    type: OpenAPI
-  - url: collections/textmagic.postman_collection.json
-    type: PostmanCollection
-  - url: collections/textmagic.opencollection.json
-    type: OpenCollection
-  description: Manage two-way conversations - list, search, open, close, mute, and read
-    chats - and retrieve, search, and delete inbound reply messages.
-- aid: textmagic:textmagic-contacts-lists-api
-  name: Textmagic Contacts and Lists API
   tags:
   - Contacts
-  - Lists
-  - Address Book
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-lists-api
+  name: Textmagic Lists API
+  description: Manage contact lists.
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
-  properties:
-  - url: https://docs.textmagic.com/
-    type: Documentation
-  - url: https://docs.textmagic.com/
-    type: APIReference
-  - url: openapi/textmagic-openapi.yml
-    type: OpenAPI
-  - url: collections/textmagic.postman_collection.json
-    type: PostmanCollection
-  - url: collections/textmagic.opencollection.json
-    type: OpenCollection
-  description: Create, read, update, delete, search, and import contacts; organize them
-    into lists; and manage contact list membership, blocking, and unsubscribes.
-- aid: textmagic:textmagic-templates-api
-  name: Textmagic Templates API
   tags:
-  - Templates
-  - Reusable Content
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-lists-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-messages-api
+  name: Textmagic Messages API
+  description: Send and manage outbound SMS messages.
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
+  tags:
+  - Messages
   properties:
-  - url: https://docs.textmagic.com/
-    type: Documentation
-  - url: https://docs.textmagic.com/
-    type: APIReference
-  - url: openapi/textmagic-openapi.yml
-    type: OpenAPI
-  - url: collections/textmagic.postman_collection.json
-    type: PostmanCollection
-  - url: collections/textmagic.opencollection.json
-    type: OpenCollection
-  description: Create, read, update, delete, and search reusable message templates for
-    consistent outbound messaging.
+  - type: OpenAPI
+    url: openapi/textmagic-messages-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-numbers-api
+  name: Textmagic Numbers API
+  description: Find and manage dedicated virtual numbers.
+  humanURL: https://docs.textmagic.com/
+  baseURL: https://rest.textmagic.com/api/v2
+  tags:
+  - Numbers
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-numbers-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-replies-api
+  name: Textmagic Replies API
+  description: Retrieve and manage inbound messages.
+  humanURL: https://docs.textmagic.com/
+  baseURL: https://rest.textmagic.com/api/v2
+  tags:
+  - Replies
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-replies-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
 - aid: textmagic:textmagic-schedules-api
-  name: Textmagic Scheduled Messages API
+  name: Textmagic Schedules API
+  description: Manage scheduled (future-dated) messages.
+  humanURL: https://docs.textmagic.com/
+  baseURL: https://rest.textmagic.com/api/v2
   tags:
   - Schedules
-  - Scheduled Messages
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-schedules-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-sender-ids-api
+  name: Textmagic Sender IDs API
+  description: Apply for and manage alphanumeric sender IDs.
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
-  properties:
-  - url: https://docs.textmagic.com/
-    type: Documentation
-  - url: https://docs.textmagic.com/
-    type: APIReference
-  - url: openapi/textmagic-openapi.yml
-    type: OpenAPI
-  - url: collections/textmagic.postman_collection.json
-    type: PostmanCollection
-  - url: collections/textmagic.opencollection.json
-    type: OpenCollection
-  description: List, retrieve, search, and delete scheduled (future-dated) messages
-    queued for delivery.
-- aid: textmagic:textmagic-senderids-numbers-api
-  name: Textmagic Sender IDs and Numbers API
   tags:
   - Sender IDs
-  - Dedicated Numbers
-  - Sender Settings
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-sender-ids-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-stats-api
+  name: Textmagic Stats API
+  description: Account, usage, and spending statistics.
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
+  tags:
+  - Stats
   properties:
-  - url: https://docs.textmagic.com/
-    type: Documentation
-  - url: https://docs.textmagic.com/
-    type: APIReference
-  - url: openapi/textmagic-openapi.yml
-    type: OpenAPI
-  - url: collections/textmagic.postman_collection.json
-    type: PostmanCollection
-  - url: collections/textmagic.opencollection.json
-    type: OpenCollection
-  description: Apply for and manage alphanumeric sender IDs, find and purchase dedicated
-    virtual numbers, and configure sender settings and available sources.
+  - type: OpenAPI
+    url: openapi/textmagic-stats-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
+- aid: textmagic:textmagic-templates-api
+  name: Textmagic Templates API
+  description: Manage reusable message templates.
+  humanURL: https://docs.textmagic.com/
+  baseURL: https://rest.textmagic.com/api/v2
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/textmagic-templates-api-openapi.yml
+  - type: Documentation
+    url: https://www.textmagic.com/docs/api/send-sms/
+  - type: APIReference
+    url: https://docs.textmagic.com/
+  - type: PostmanCollection
+    url: collections/textmagic.postman_collection.json
+  - type: OpenCollection
+    url: collections/textmagic.opencollection.json
+  - type: Documentation
+    url: https://docs.textmagic.com/
 common:
 - type: AgenticAccess
   url: agentic-access/textmagic-agentic-access.yml
