@@ -1,0 +1,1426 @@
+openapi: 3.0.1
+info:
+  title: Textmagic REST API
+  description: >-
+    The Textmagic REST API (v2) provides programmatic access to the Textmagic
+    business text-messaging platform. Send and receive SMS, manage contacts and
+    lists, schedule and template messages, run two-way chats, and administer
+    sender IDs and dedicated numbers. All requests are authenticated with the
+    X-TM-Username and X-TM-Key headers.
+  termsOfService: https://www.textmagic.com/terms-of-service/
+  contact:
+    name: Textmagic Support
+    email: support@textmagic.com
+    url: https://docs.textmagic.com/
+  version: '2.0'
+servers:
+  - url: https://rest.textmagic.com/api/v2
+security:
+  - TmUsername: []
+    TmKey: []
+tags:
+  - name: Messages
+    description: Send and manage outbound SMS messages.
+  - name: Replies
+    description: Retrieve and manage inbound messages.
+  - name: Bulk
+    description: Track bulk send sessions.
+  - name: Chats
+    description: Manage two-way conversations.
+  - name: Contacts
+    description: Manage contacts in the address book.
+  - name: Lists
+    description: Manage contact lists.
+  - name: Templates
+    description: Manage reusable message templates.
+  - name: Schedules
+    description: Manage scheduled (future-dated) messages.
+  - name: Sender IDs
+    description: Apply for and manage alphanumeric sender IDs.
+  - name: Numbers
+    description: Find and manage dedicated virtual numbers.
+  - name: Stats
+    description: Account, usage, and spending statistics.
+paths:
+  /messages:
+    get:
+      operationId: getMessages
+      tags:
+        - Messages
+      summary: Get all outbound messages
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of outbound messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+    post:
+      operationId: sendMessage
+      tags:
+        - Messages
+      summary: Send a message
+      description: >-
+        Send a new outbound message to one or more phone numbers, contacts,
+        or lists. Returns the created message or session identifiers.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '201':
+          description: The message was accepted for delivery.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /messages/{id}:
+    get:
+      operationId: getMessage
+      tags:
+        - Messages
+      summary: Get a single message
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single outbound message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMessage
+      tags:
+        - Messages
+      summary: Delete a message
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The message was deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /messages/search:
+    get:
+      operationId: searchMessages
+      tags:
+        - Messages
+      summary: Find messages by criteria
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Free-text search query.
+      responses:
+        '200':
+          description: Matching outbound messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+  /messages/price/normalized:
+    get:
+      operationId: getMessagePrice
+      tags:
+        - Messages
+      summary: Check message price
+      parameters:
+        - name: text
+          in: query
+          schema:
+            type: string
+          description: Message body to be priced.
+        - name: phones
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of E.164 phone numbers.
+      responses:
+        '200':
+          description: Estimated price and part count for the message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagePrice'
+  /replies:
+    get:
+      operationId: getReplies
+      tags:
+        - Replies
+      summary: Get all inbound messages
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of inbound messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplyList'
+  /replies/{id}:
+    get:
+      operationId: getReply
+      tags:
+        - Replies
+      summary: Get a single inbound message
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single inbound message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reply'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteReply
+      tags:
+        - Replies
+      summary: Delete a single inbound message
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The inbound message was deleted.
+  /bulks:
+    get:
+      operationId: getBulkSessions
+      tags:
+        - Bulk
+      summary: Get all bulk sessions
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of bulk sessions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkSessionList'
+  /bulks/{id}:
+    get:
+      operationId: getBulkSession
+      tags:
+        - Bulk
+      summary: Get bulk session status
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Status of a single bulk session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkSession'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /chats:
+    get:
+      operationId: getChats
+      tags:
+        - Chats
+      summary: Get all chats
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of chats.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatList'
+  /chats/{id}:
+    get:
+      operationId: getChat
+      tags:
+        - Chats
+      summary: Get a single chat
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single chat.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chat'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /chats/{id}/messages:
+    get:
+      operationId: getChatMessages
+      tags:
+        - Chats
+      summary: Get chat messages
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Messages within a chat.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+  /chats/status:
+    post:
+      operationId: updateChatStatus
+      tags:
+        - Chats
+      summary: Change chat status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatStatusRequest'
+      responses:
+        '204':
+          description: The chat status was updated.
+  /contacts:
+    get:
+      operationId: getContacts
+      tags:
+        - Contacts
+      summary: Get all contacts
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of contacts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactList'
+  /contacts/normalized:
+    post:
+      operationId: createContact
+      tags:
+        - Contacts
+      summary: Add a new contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+      responses:
+        '201':
+          description: The created contact's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /contacts/{id}:
+    get:
+      operationId: getContact
+      tags:
+        - Contacts
+      summary: Get the details of a specific contact
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single contact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteContact
+      tags:
+        - Contacts
+      summary: Delete a contact
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The contact was deleted.
+  /contacts/{id}/normalized:
+    put:
+      operationId: updateContact
+      tags:
+        - Contacts
+      summary: Edit a contact
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+      responses:
+        '200':
+          description: The updated contact's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+  /contacts/search:
+    get:
+      operationId: searchContacts
+      tags:
+        - Contacts
+      summary: Find contacts by given criteria
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - name: query
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matching contacts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactList'
+  /lists:
+    get:
+      operationId: getLists
+      tags:
+        - Lists
+      summary: Get all lists
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of contact lists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListList'
+    post:
+      operationId: createList
+      tags:
+        - Lists
+      summary: Create a new list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListRequest'
+      responses:
+        '201':
+          description: The created list's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+  /lists/{id}:
+    get:
+      operationId: getList
+      tags:
+        - Lists
+      summary: Get the details of a specific list
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single contact list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListEntity'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateList
+      tags:
+        - Lists
+      summary: Edit a list
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListRequest'
+      responses:
+        '200':
+          description: The updated list's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+    delete:
+      operationId: deleteList
+      tags:
+        - Lists
+      summary: Delete a list
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The list was deleted.
+  /lists/{id}/contacts:
+    get:
+      operationId: getListContacts
+      tags:
+        - Lists
+      summary: Get all contacts in a list
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Contacts that belong to the list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactList'
+    put:
+      operationId: assignContactsToList
+      tags:
+        - Lists
+      summary: Assign contacts to a list
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListContactsRequest'
+      responses:
+        '204':
+          description: Contacts were assigned to the list.
+    delete:
+      operationId: unassignContactsFromList
+      tags:
+        - Lists
+      summary: Unassign contacts from a list
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: Contacts were unassigned from the list.
+  /templates:
+    get:
+      operationId: getTemplates
+      tags:
+        - Templates
+      summary: Get all templates
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of templates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateList'
+    post:
+      operationId: createTemplate
+      tags:
+        - Templates
+      summary: Create a template
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateRequest'
+      responses:
+        '201':
+          description: The created template's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+  /templates/{id}:
+    get:
+      operationId: getTemplate
+      tags:
+        - Templates
+      summary: Get a template's details
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single template.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTemplate
+      tags:
+        - Templates
+      summary: Update a template
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateRequest'
+      responses:
+        '200':
+          description: The updated template's identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+    delete:
+      operationId: deleteTemplate
+      tags:
+        - Templates
+      summary: Delete a template
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The template was deleted.
+  /schedules:
+    get:
+      operationId: getSchedules
+      tags:
+        - Schedules
+      summary: Get all scheduled messages
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of scheduled messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleList'
+  /schedules/{id}:
+    get:
+      operationId: getSchedule
+      tags:
+        - Schedules
+      summary: Get a single scheduled message
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single scheduled message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSchedule
+      tags:
+        - Schedules
+      summary: Delete a single scheduled message
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The scheduled message was deleted.
+  /senderids:
+    get:
+      operationId: getSenderIds
+      tags:
+        - Sender IDs
+      summary: Get all your approved Sender IDs
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of sender IDs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderIdList'
+    post:
+      operationId: createSenderId
+      tags:
+        - Sender IDs
+      summary: Apply for a new Sender ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SenderIdRequest'
+      responses:
+        '201':
+          description: The sender ID application was submitted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+  /senderids/{id}:
+    get:
+      operationId: getSenderId
+      tags:
+        - Sender IDs
+      summary: Get the details of a specific Sender ID
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single sender ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderId'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSenderId
+      tags:
+        - Sender IDs
+      summary: Delete a Sender ID
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The sender ID was deleted.
+  /numbers:
+    get:
+      operationId: getNumbers
+      tags:
+        - Numbers
+      summary: Get all your dedicated numbers
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of dedicated numbers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NumberList'
+    post:
+      operationId: buyNumber
+      tags:
+        - Numbers
+      summary: Buy a dedicated number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyNumberRequest'
+      responses:
+        '201':
+          description: The dedicated number was purchased.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+  /numbers/available:
+    get:
+      operationId: getAvailableNumbers
+      tags:
+        - Numbers
+      summary: Find dedicated numbers available for purchase
+      parameters:
+        - name: country
+          in: query
+          schema:
+            type: string
+          description: Two-letter ISO country code.
+      responses:
+        '200':
+          description: Available dedicated numbers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableNumbers'
+  /numbers/{id}:
+    get:
+      operationId: getNumber
+      tags:
+        - Numbers
+      summary: Get the details of a specific dedicated number
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A single dedicated number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Number'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: cancelNumber
+      tags:
+        - Numbers
+      summary: Cancel a dedicated number subscription
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204':
+          description: The dedicated number subscription was cancelled.
+  /user:
+    get:
+      operationId: getUser
+      tags:
+        - Stats
+      summary: Get current account information
+      responses:
+        '200':
+          description: The current account, including balance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /stats/spending:
+    get:
+      operationId: getSpendingStats
+      tags:
+        - Stats
+      summary: Get spending statistics
+      parameters:
+        - name: start
+          in: query
+          schema:
+            type: integer
+          description: Start timestamp (Unix).
+        - name: end
+          in: query
+          schema:
+            type: integer
+          description: End timestamp (Unix).
+      responses:
+        '200':
+          description: Spending statistics for the requested period.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpendingStats'
+  /ping:
+    get:
+      operationId: ping
+      tags:
+        - Stats
+      summary: Ping
+      description: Health-check endpoint that confirms credentials are valid.
+      responses:
+        '200':
+          description: Service is reachable.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ping:
+                    type: string
+                    example: pong
+components:
+  securitySchemes:
+    TmUsername:
+      type: apiKey
+      in: header
+      name: X-TM-Username
+      description: Your Textmagic account username.
+    TmKey:
+      type: apiKey
+      in: header
+      name: X-TM-Key
+      description: Your Textmagic API key, generated in the account settings.
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+  responses:
+    BadRequest:
+      description: The request was malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+    SendMessageRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          description: The message body.
+        phones:
+          type: string
+          description: Comma-separated list of E.164 phone numbers.
+        templateId:
+          type: integer
+          description: Optional template to use instead of text.
+        contacts:
+          type: string
+          description: Comma-separated list of contact IDs.
+        lists:
+          type: string
+          description: Comma-separated list of list IDs.
+        from:
+          type: string
+          description: Sender ID or dedicated number to send from.
+        sendingTime:
+          type: integer
+          description: Optional Unix timestamp to schedule the message.
+      required:
+        - text
+    SendMessageResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
+        type:
+          type: string
+          description: Either "message", "session", or "scheduled".
+        sessionId:
+          type: integer
+        bulkId:
+          type: integer
+        messageId:
+          type: integer
+        scheduleId:
+          type: integer
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        receiver:
+          type: string
+        messageTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+        text:
+          type: string
+        charset:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        country:
+          type: string
+        sender:
+          type: string
+        price:
+          type: number
+        partsCount:
+          type: integer
+    MessageList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    MessagePrice:
+      type: object
+      properties:
+        total:
+          type: number
+        parts:
+          type: integer
+        countries:
+          type: object
+    Reply:
+      type: object
+      properties:
+        id:
+          type: integer
+        sender:
+          type: string
+        messageTime:
+          type: string
+          format: date-time
+        text:
+          type: string
+        receiver:
+          type: string
+    ReplyList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reply'
+    BulkSession:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+        itemsProcessed:
+          type: integer
+        numbersCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        text:
+          type: string
+    BulkSessionList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkSession'
+    Chat:
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        contact:
+          $ref: '#/components/schemas/Contact'
+        unread:
+          type: integer
+        status:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    ChatList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+    ChatStatusRequest:
+      type: object
+      properties:
+        ids:
+          type: string
+          description: Comma-separated list of chat IDs.
+        status:
+          type: string
+          description: Target status, e.g. open or closed.
+      required:
+        - ids
+        - status
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        companyName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
+        blocked:
+          type: boolean
+    ContactRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        companyName:
+          type: string
+        lists:
+          type: string
+          description: Comma-separated list of list IDs to assign the contact to.
+      required:
+        - phone
+        - lists
+    ContactList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    ContactListEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        membersCount:
+          type: integer
+        shared:
+          type: boolean
+    ContactListList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
+    ListRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        shared:
+          type: boolean
+      required:
+        - name
+    ListContactsRequest:
+      type: object
+      properties:
+        contacts:
+          type: string
+          description: Comma-separated list of contact IDs.
+      required:
+        - contacts
+    Template:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        content:
+          type: string
+        lastModified:
+          type: string
+          format: date-time
+    TemplateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+      required:
+        - name
+        - content
+    TemplateList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: integer
+        nextSend:
+          type: string
+          format: date-time
+        rrule:
+          type: string
+          description: Recurrence rule for repeating schedules.
+        session:
+          $ref: '#/components/schemas/BulkSession'
+    ScheduleList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
+    SenderId:
+      type: object
+      properties:
+        id:
+          type: integer
+        senderId:
+          type: string
+        user:
+          type: integer
+        status:
+          type: string
+    SenderIdRequest:
+      type: object
+      properties:
+        senderId:
+          type: string
+        explanation:
+          type: string
+      required:
+        - senderId
+        - explanation
+    SenderIdList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SenderId'
+    Number:
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        purchasedAt:
+          type: string
+          format: date-time
+        expireAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+    NumberList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Number'
+    AvailableNumbers:
+      type: object
+      properties:
+        numbers:
+          type: array
+          items:
+            type: string
+        price:
+          type: number
+    BuyNumberRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+        country:
+          type: string
+      required:
+        - phone
+        - country
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        balance:
+          type: number
+        currency:
+          $ref: '#/components/schemas/Currency'
+        timezone:
+          type: object
+        email:
+          type: string
+    Currency:
+      type: object
+      properties:
+        id:
+          type: string
+        htmlSymbol:
+          type: string
+    SpendingStats:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              date:
+                type: string
+                format: date-time
+              balance:
+                type: number
+              delta:
+                type: number
+              type:
+                type: string
+              value:
+                type: number

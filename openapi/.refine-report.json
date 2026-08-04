@@ -1,0 +1,34 @@
+{
+  "provider": "textmagic",
+  "sources": [
+    "textmagic-bulk-api-openapi.yml",
+    "textmagic-chats-api-openapi.yml",
+    "textmagic-contacts-api-openapi.yml",
+    "textmagic-lists-api-openapi.yml",
+    "textmagic-messages-api-openapi.yml",
+    "textmagic-numbers-api-openapi.yml",
+    "textmagic-replies-api-openapi.yml",
+    "textmagic-schedules-api-openapi.yml",
+    "textmagic-sender-ids-api-openapi.yml",
+    "textmagic-stats-api-openapi.yml",
+    "textmagic-templates-api-openapi.yml"
+  ],
+  "outputs": [
+    "textmagic-bulk-api-openapi.yml",
+    "textmagic-chats-api-openapi.yml",
+    "textmagic-contacts-api-openapi.yml",
+    "textmagic-lists-api-openapi.yml",
+    "textmagic-messages-api-openapi.yml",
+    "textmagic-numbers-api-openapi.yml",
+    "textmagic-replies-api-openapi.yml",
+    "textmagic-schedules-api-openapi.yml",
+    "textmagic-sender-ids-api-openapi.yml",
+    "textmagic-stats-api-openapi.yml",
+    "textmagic-templates-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
