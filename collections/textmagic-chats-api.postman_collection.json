@@ -1,0 +1,498 @@
+{
+  "item": [
+    {
+      "id": "546706e3-bbc6-4d2d-89ec-71abbadcd631",
+      "name": "Chats",
+      "description": {
+        "content": "Manage two-way conversations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b955a2f5-19e7-4e2c-bc63-0c1f9cc5651c",
+          "name": "Get all chats",
+          "request": {
+            "name": "Get all chats",
+            "description": {},
+            "url": {
+              "path": [
+                "chats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d6d0084b-c576-4623-8360-5a500aad7092",
+              "name": "A paginated list of chats.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": 5520,\n  \"limit\": 6911,\n  \"pageCount\": 2190,\n  \"resources\": [\n    {\n      \"id\": 2561,\n      \"phone\": \"string\",\n      \"contact\": {\n        \"id\": 2559,\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"companyName\": \"string\",\n        \"phone\": \"string\",\n        \"email\": \"string\",\n        \"country\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"lists\": [\n          {\n            \"id\": 6223,\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"membersCount\": 2307,\n            \"shared\": true\n          },\n          {\n            \"id\": 5148,\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"membersCount\": 6270,\n            \"shared\": true\n          }\n        ],\n        \"blocked\": false\n      },\n      \"unread\": 5769,\n      \"status\": \"string\",\n      \"updatedAt\": \"1971-03-26T04:21:05.310Z\"\n    },\n    {\n      \"id\": 3199,\n      \"phone\": \"string\",\n      \"contact\": {\n        \"id\": 4259,\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"companyName\": \"string\",\n        \"phone\": \"string\",\n        \"email\": \"string\",\n        \"country\": {\n          \"id\": \"string\",\n          \"name\": \"string\"\n        },\n        \"lists\": [\n          {\n            \"id\": 3422,\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"membersCount\": 3951,\n            \"shared\": false\n          },\n          {\n            \"id\": 3121,\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"membersCount\": 4768,\n            \"shared\": true\n          }\n        ],\n        \"blocked\": true\n      },\n      \"unread\": 9106,\n      \"status\": \"string\",\n      \"updatedAt\": \"1973-10-24T05:24:48.179Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e0757a1-7d25-4a22-86f2-53e1c8451e68",
+          "name": "Get a single chat",
+          "request": {
+            "name": "Get a single chat",
+            "description": {},
+            "url": {
+              "path": [
+                "chats",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "baba8bbc-a2c8-416b-91df-d782fcdc5fbb",
+              "name": "A single chat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2469,\n  \"phone\": \"string\",\n  \"contact\": {\n    \"id\": 3237,\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"companyName\": \"string\",\n    \"phone\": \"string\",\n    \"email\": \"string\",\n    \"country\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"lists\": [\n      {\n        \"id\": 8511,\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"membersCount\": 7946,\n        \"shared\": false\n      },\n      {\n        \"id\": 9657,\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"membersCount\": 4107,\n        \"shared\": true\n      }\n    ],\n    \"blocked\": false\n  },\n  \"unread\": 7170,\n  \"status\": \"string\",\n  \"updatedAt\": \"1967-11-11T20:01:24.778Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "610c95cf-be55-46d4-982c-5ef72d0b21c1",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": 9179,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10f8265f-3e60-491c-a071-460147543426",
+          "name": "Get chat messages",
+          "request": {
+            "name": "Get chat messages",
+            "description": {},
+            "url": {
+              "path": [
+                "chats",
+                ":id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f05c1f09-f985-433b-a6fc-de96a56b14e4",
+              "name": "Messages within a chat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": 9686,\n  \"limit\": 469,\n  \"pageCount\": 5855,\n  \"resources\": [\n    {\n      \"id\": 4391,\n      \"receiver\": \"string\",\n      \"messageTime\": \"1972-11-23T15:15:15.879Z\",\n      \"status\": \"string\",\n      \"text\": \"string\",\n      \"charset\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"country\": \"string\",\n      \"sender\": \"string\",\n      \"price\": 4149.542721974316,\n      \"partsCount\": 3961\n    },\n    {\n      \"id\": 8086,\n      \"receiver\": \"string\",\n      \"messageTime\": \"1963-03-12T23:07:33.853Z\",\n      \"status\": \"string\",\n      \"text\": \"string\",\n      \"charset\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"country\": \"string\",\n      \"sender\": \"string\",\n      \"price\": 7756.771884056304,\n      \"partsCount\": 6630\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2051dc65-dece-4989-aaa1-18f0729663e8",
+          "name": "Change chat status",
+          "request": {
+            "name": "Change chat status",
+            "description": {},
+            "url": {
+              "path": [
+                "chats",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "188c7ef2-1cd4-4ed4-85d8-9e34ce8d22c5",
+              "name": "The chat status was updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rest.textmagic.com/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-TM-Username"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8a6a706c-0dc9-4a34-acd6-54322082f501",
+    "name": "Textmagic REST Bulk Chats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.\n\nContact Support:\n Name: Textmagic Support\n Email: support@textmagic.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Textmagic REST Bulk Chats API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TM-Username",
+      "value": "{{X-TM-Username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all chats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/chats",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Get all chats"
+        },
+        {
+          "info": {
+            "name": "Get a single chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/chats/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Get a single chat"
+        },
+        {
+          "info": {
+            "name": "Get chat messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/chats/:id/messages",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Get chat messages"
+        },
+        {
+          "info": {
+            "name": "Change chat status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rest.textmagic.com/api/v2/chats/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change chat status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

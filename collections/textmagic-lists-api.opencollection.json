@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Textmagic REST Bulk Lists API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TM-Username",
+      "value": "{{X-TM-Username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/lists",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Get all lists"
+        },
+        {
+          "info": {
+            "name": "Create a new list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rest.textmagic.com/api/v2/lists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new list"
+        },
+        {
+          "info": {
+            "name": "Get the details of a specific list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/lists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Get the details of a specific list"
+        },
+        {
+          "info": {
+            "name": "Edit a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://rest.textmagic.com/api/v2/lists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit a list"
+        },
+        {
+          "info": {
+            "name": "Delete a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://rest.textmagic.com/api/v2/lists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Delete a list"
+        },
+        {
+          "info": {
+            "name": "Get all contacts in a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/lists/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Get all contacts in a list"
+        },
+        {
+          "info": {
+            "name": "Assign contacts to a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://rest.textmagic.com/api/v2/lists/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign contacts to a list"
+        },
+        {
+          "info": {
+            "name": "Unassign contacts from a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://rest.textmagic.com/api/v2/lists/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Unassign contacts from a list"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

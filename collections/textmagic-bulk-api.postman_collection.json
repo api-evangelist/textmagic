@@ -1,0 +1,291 @@
+{
+  "item": [
+    {
+      "id": "56ae5fb7-6d35-47a8-9e48-28a7659d833d",
+      "name": "Bulk",
+      "description": {
+        "content": "Track bulk send sessions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1cbd1e19-e558-41eb-aed7-e5d1061675ea",
+          "name": "Get all bulk sessions",
+          "request": {
+            "name": "Get all bulk sessions",
+            "description": {},
+            "url": {
+              "path": [
+                "bulks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25fb3e6a-d92e-48c8-bf84-2b4dfd6b4c47",
+              "name": "A paginated list of bulk sessions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": 2646,\n  \"limit\": 9823,\n  \"pageCount\": 4389,\n  \"resources\": [\n    {\n      \"id\": 9127,\n      \"status\": \"string\",\n      \"itemsProcessed\": 2674,\n      \"numbersCount\": 4309,\n      \"createdAt\": \"2026-06-08T03:00:40.190Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"id\": 2591,\n      \"status\": \"string\",\n      \"itemsProcessed\": 2587,\n      \"numbersCount\": 7274,\n      \"createdAt\": \"2007-09-08T06:22:51.738Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f465bbea-c85e-4d6a-86a6-a412f4fcf4a9",
+          "name": "Get bulk session status",
+          "request": {
+            "name": "Get bulk session status",
+            "description": {},
+            "url": {
+              "path": [
+                "bulks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4604f7c9-2d37-4347-bdb4-bf791b075daa",
+              "name": "Status of a single bulk session.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6914,\n  \"status\": \"string\",\n  \"itemsProcessed\": 8064,\n  \"numbersCount\": 3507,\n  \"createdAt\": \"1952-10-23T11:51:56.054Z\",\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99a06413-8889-42de-a767-b76f11c7a0d1",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": 7382,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rest.textmagic.com/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-TM-Username"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ebd6a578-f483-42a2-b913-5946015ccec6",
+    "name": "Textmagic REST Bulk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.\n\nContact Support:\n Name: Textmagic Support\n Email: support@textmagic.com",
+      "type": "text/plain"
+    }
+  }
+}

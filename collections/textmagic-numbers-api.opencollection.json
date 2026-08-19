@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Textmagic REST Bulk Numbers API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TM-Username",
+      "value": "{{X-TM-Username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Numbers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all your dedicated numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/numbers",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Get all your dedicated numbers"
+        },
+        {
+          "info": {
+            "name": "Buy a dedicated number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rest.textmagic.com/api/v2/numbers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Buy a dedicated number"
+        },
+        {
+          "info": {
+            "name": "Find dedicated numbers available for purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/numbers/available",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Two-letter ISO country code."
+              }
+            ]
+          },
+          "docs": "Find dedicated numbers available for purchase"
+        },
+        {
+          "info": {
+            "name": "Get the details of a specific dedicated number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/numbers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Get the details of a specific dedicated number"
+        },
+        {
+          "info": {
+            "name": "Cancel a dedicated number subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://rest.textmagic.com/api/v2/numbers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Cancel a dedicated number subscription"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

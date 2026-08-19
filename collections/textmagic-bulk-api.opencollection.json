@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Textmagic REST Bulk API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TM-Username",
+      "value": "{{X-TM-Username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bulk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all bulk sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/bulks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Get all bulk sessions"
+        },
+        {
+          "info": {
+            "name": "Get bulk session status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/bulks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Get bulk session status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

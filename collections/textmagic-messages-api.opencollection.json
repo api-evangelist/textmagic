@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Textmagic REST Bulk Messages API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TM-Username",
+      "value": "{{X-TM-Username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all outbound messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/messages",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Get all outbound messages"
+        },
+        {
+          "info": {
+            "name": "Send a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rest.textmagic.com/api/v2/messages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a new outbound message to one or more phone numbers, contacts, or lists. Returns the created message or session identifiers."
+        },
+        {
+          "info": {
+            "name": "Get a single message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/messages/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Get a single message"
+        },
+        {
+          "info": {
+            "name": "Delete a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://rest.textmagic.com/api/v2/messages/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Delete a message"
+        },
+        {
+          "info": {
+            "name": "Find messages by criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/messages/search",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Free-text search query."
+              }
+            ]
+          },
+          "docs": "Find messages by criteria"
+        },
+        {
+          "info": {
+            "name": "Check message price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/messages/price/normalized",
+            "params": [
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Message body to be priced."
+              },
+              {
+                "name": "phones",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of E.164 phone numbers."
+              }
+            ]
+          },
+          "docs": "Check message price"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

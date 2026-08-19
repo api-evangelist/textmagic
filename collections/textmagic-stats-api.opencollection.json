@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Textmagic REST Bulk Stats API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TM-Username",
+      "value": "{{X-TM-Username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current account information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/user"
+          },
+          "docs": "Get current account information"
+        },
+        {
+          "info": {
+            "name": "Get spending statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/stats/spending",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp (Unix)."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp (Unix)."
+              }
+            ]
+          },
+          "docs": "Get spending statistics"
+        },
+        {
+          "info": {
+            "name": "Ping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rest.textmagic.com/api/v2/ping"
+          },
+          "docs": "Health-check endpoint that confirms credentials are valid."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

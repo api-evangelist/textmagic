@@ -1,0 +1,1058 @@
+{
+  "item": [
+    {
+      "id": "06666e94-64ee-482b-bbb7-7885975682b0",
+      "name": "Messages",
+      "description": {
+        "content": "Send and manage outbound SMS messages.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16d2f6b4-8f20-4be4-a2e2-e5dfb027bf54",
+          "name": "Get all outbound messages",
+          "request": {
+            "name": "Get all outbound messages",
+            "description": {},
+            "url": {
+              "path": [
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba009393-bfa0-46bd-a92f-65c1f765ce08",
+              "name": "A paginated list of outbound messages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": 3621,\n  \"limit\": 7062,\n  \"pageCount\": 3459,\n  \"resources\": [\n    {\n      \"id\": 5512,\n      \"receiver\": \"string\",\n      \"messageTime\": \"1949-06-04T10:36:59.918Z\",\n      \"status\": \"string\",\n      \"text\": \"string\",\n      \"charset\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"country\": \"string\",\n      \"sender\": \"string\",\n      \"price\": 295.1051743887223,\n      \"partsCount\": 1952\n    },\n    {\n      \"id\": 2698,\n      \"receiver\": \"string\",\n      \"messageTime\": \"1971-01-25T22:06:07.719Z\",\n      \"status\": \"string\",\n      \"text\": \"string\",\n      \"charset\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"country\": \"string\",\n      \"sender\": \"string\",\n      \"price\": 1023.0068758065225,\n      \"partsCount\": 8569\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a96721f-97b5-48dc-9ebd-a14a0715e3ba",
+          "name": "Send a message",
+          "request": {
+            "name": "Send a message",
+            "description": {
+              "content": "Send a new outbound message to one or more phone numbers, contacts, or lists. Returns the created message or session identifiers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "(Required) The message body."
+                },
+                {
+                  "disabled": false,
+                  "key": "phones",
+                  "value": "<string>",
+                  "description": "Comma-separated list of E.164 phone numbers."
+                },
+                {
+                  "disabled": false,
+                  "key": "templateId",
+                  "value": "<integer>",
+                  "description": "Optional template to use instead of text."
+                },
+                {
+                  "disabled": false,
+                  "key": "contacts",
+                  "value": "<string>",
+                  "description": "Comma-separated list of contact IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "lists",
+                  "value": "<string>",
+                  "description": "Comma-separated list of list IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Sender ID or dedicated number to send from."
+                },
+                {
+                  "disabled": false,
+                  "key": "sendingTime",
+                  "value": "<integer>",
+                  "description": "Optional Unix timestamp to schedule the message."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "41bbef0c-11e7-4e44-a877-98e930a726ad",
+              "name": "The message was accepted for delivery.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The message body.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of E.164 phone numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "phones",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional template to use instead of text.",
+                        "type": "text/plain"
+                      },
+                      "key": "templateId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of contact IDs.",
+                        "type": "text/plain"
+                      },
+                      "key": "contacts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of list IDs.",
+                        "type": "text/plain"
+                      },
+                      "key": "lists",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Sender ID or dedicated number to send from.",
+                        "type": "text/plain"
+                      },
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional Unix timestamp to schedule the message.",
+                        "type": "text/plain"
+                      },
+                      "key": "sendingTime",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 9984,\n  \"href\": \"string\",\n  \"type\": \"string\",\n  \"sessionId\": 802,\n  \"bulkId\": 7398,\n  \"messageId\": 9509,\n  \"scheduleId\": 3656\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38937038-b5bf-4a66-b60b-32f9261cef5d",
+              "name": "The request was malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The message body.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of E.164 phone numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "phones",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional template to use instead of text.",
+                        "type": "text/plain"
+                      },
+                      "key": "templateId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of contact IDs.",
+                        "type": "text/plain"
+                      },
+                      "key": "contacts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of list IDs.",
+                        "type": "text/plain"
+                      },
+                      "key": "lists",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Sender ID or dedicated number to send from.",
+                        "type": "text/plain"
+                      },
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional Unix timestamp to schedule the message.",
+                        "type": "text/plain"
+                      },
+                      "key": "sendingTime",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": 4346,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7828f05d-2743-46ca-84a6-b79f1bd864e6",
+              "name": "Missing or invalid API credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The message body.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of E.164 phone numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "phones",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional template to use instead of text.",
+                        "type": "text/plain"
+                      },
+                      "key": "templateId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of contact IDs.",
+                        "type": "text/plain"
+                      },
+                      "key": "contacts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of list IDs.",
+                        "type": "text/plain"
+                      },
+                      "key": "lists",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Sender ID or dedicated number to send from.",
+                        "type": "text/plain"
+                      },
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional Unix timestamp to schedule the message.",
+                        "type": "text/plain"
+                      },
+                      "key": "sendingTime",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": 4346,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f9a336c-d12a-44f4-aecb-d8c4e6c7cc78",
+          "name": "Get a single message",
+          "request": {
+            "name": "Get a single message",
+            "description": {},
+            "url": {
+              "path": [
+                "messages",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b283699e-55f7-4350-836c-36ce4f5c1d4e",
+              "name": "A single outbound message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2844,\n  \"receiver\": \"string\",\n  \"messageTime\": \"1994-07-25T11:05:07.636Z\",\n  \"status\": \"string\",\n  \"text\": \"string\",\n  \"charset\": \"string\",\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"country\": \"string\",\n  \"sender\": \"string\",\n  \"price\": 711.9528714312117,\n  \"partsCount\": 8731\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d17cf21-9d29-478e-8aaa-65b24de074b6",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": 4346,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "320810ae-f597-4d5d-839c-f4674beab132",
+          "name": "Delete a message",
+          "request": {
+            "name": "Delete a message",
+            "description": {},
+            "url": {
+              "path": [
+                "messages",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb58a7f0-dc79-4cb5-9abe-b222ed83d25c",
+              "name": "The message was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7afbad73-cf69-43fe-8232-2303fe79dc61",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": 4346,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c94d4fea-5bfc-4b4a-a66f-8b7822124c26",
+          "name": "Find messages by criteria",
+          "request": {
+            "name": "Find messages by criteria",
+            "description": {},
+            "url": {
+              "path": [
+                "messages",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Free-text search query."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "719cff8f-a01f-4d27-b794-620fb56007b5",
+              "name": "Matching outbound messages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": 5384,\n  \"limit\": 8998,\n  \"pageCount\": 450,\n  \"resources\": [\n    {\n      \"id\": 3841,\n      \"receiver\": \"string\",\n      \"messageTime\": \"2007-01-13T09:13:42.342Z\",\n      \"status\": \"string\",\n      \"text\": \"string\",\n      \"charset\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"country\": \"string\",\n      \"sender\": \"string\",\n      \"price\": 8385.955619464372,\n      \"partsCount\": 9124\n    },\n    {\n      \"id\": 8631,\n      \"receiver\": \"string\",\n      \"messageTime\": \"1956-02-10T05:03:42.144Z\",\n      \"status\": \"string\",\n      \"text\": \"string\",\n      \"charset\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"country\": \"string\",\n      \"sender\": \"string\",\n      \"price\": 9809.467233060102,\n      \"partsCount\": 3823\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "830bd2be-8fda-4a71-853e-4f5f77222496",
+          "name": "Check message price",
+          "request": {
+            "name": "Check message price",
+            "description": {},
+            "url": {
+              "path": [
+                "messages",
+                "price",
+                "normalized"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "Message body to be priced."
+                },
+                {
+                  "disabled": false,
+                  "key": "phones",
+                  "value": "<string>",
+                  "description": "Comma-separated list of E.164 phone numbers."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12e65a52-adf3-4515-985b-6aca86e6638c",
+              "name": "Estimated price and part count for the message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    "price",
+                    "normalized"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phones",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TM-Username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 9228.955658323717,\n  \"parts\": 7013,\n  \"countries\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rest.textmagic.com/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-TM-Username"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4877f9c3-ecdb-4be3-8be1-84a5e8171afa",
+    "name": "Textmagic REST Bulk Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.\n\nContact Support:\n Name: Textmagic Support\n Email: support@textmagic.com",
+      "type": "text/plain"
+    }
+  }
+}
