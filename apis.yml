@@ -96,6 +96,8 @@ apis:
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI
@@ -116,6 +118,8 @@ apis:
   humanURL: https://docs.textmagic.com/
   baseURL: https://rest.textmagic.com/api/v2
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
