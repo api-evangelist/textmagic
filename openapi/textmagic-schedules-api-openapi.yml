@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Textmagic REST Bulk Schedules API
+  title: Textmagic REST Schedules API
   description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
   termsOfService: https://www.textmagic.com/terms-of-service/
   contact:
@@ -61,49 +61,16 @@ paths:
         '204':
           description: The scheduled message was deleted.
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    ScheduleList:
+    Error:
       type: object
       properties:
-        page:
+        message:
+          type: string
+        code:
           type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Schedule'
+        errors:
+          type: object
     Schedule:
       type: object
       properties:
@@ -117,15 +84,19 @@ components:
           description: Recurrence rule for repeating schedules.
         session:
           $ref: '#/components/schemas/BulkSession'
-    Error:
+    ScheduleList:
       type: object
       properties:
-        message:
-          type: string
-        code:
+        page:
           type: integer
-        errors:
-          type: object
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
     BulkSession:
       type: object
       properties:
@@ -142,6 +113,35 @@ components:
           format: date-time
         text:
           type: string
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     TmUsername:
       type: apiKey

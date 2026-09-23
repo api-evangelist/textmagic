@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Textmagic REST Bulk Numbers API
+  title: Textmagic REST Numbers API
   description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
   termsOfService: https://www.textmagic.com/terms-of-service/
   contact:
@@ -98,44 +98,39 @@ paths:
         '204':
           description: The dedicated number subscription was cancelled.
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
   schemas:
-    AvailableNumbers:
-      type: object
-      properties:
-        numbers:
-          type: array
-          items:
-            type: string
-        price:
-          type: number
-    Country:
+    ResourceLink:
       type: object
       properties:
         id:
+          type: integer
+        href:
           type: string
-        name:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+    Number:
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        purchasedAt:
+          type: string
+          format: date-time
+        expireAt:
+          type: string
+          format: date-time
+        status:
           type: string
     BuyNumberRequest:
       type: object
@@ -160,39 +155,44 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Number'
-    ResourceLink:
+    AvailableNumbers:
+      type: object
+      properties:
+        numbers:
+          type: array
+          items:
+            type: string
+        price:
+          type: number
+    Country:
       type: object
       properties:
         id:
-          type: integer
-        href:
           type: string
-    Number:
-      type: object
-      properties:
-        id:
-          type: integer
-        phone:
+        name:
           type: string
-        country:
-          $ref: '#/components/schemas/Country'
-        purchasedAt:
-          type: string
-          format: date-time
-        expireAt:
-          type: string
-          format: date-time
-        status:
-          type: string
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   responses:
     NotFound:
       description: The requested resource was not found.

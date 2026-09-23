@@ -1,0 +1,1 @@
+{"resource":"https:\/\/mcp.textmagic.com","authorization_servers":["https:\/\/oauth.textmagic.com"],"scopes_supported":["mcp:account:view","mcp:sms:view","mcp:sms:send","mcp:contacts:view","mcp:contacts:manage","mcp:groups:view","mcp:groups:manage","mcp:tags:view","mcp:tags:manage"],"bearer_methods_supported":["header"]}

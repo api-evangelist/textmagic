@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Textmagic REST Bulk Lists API
+  title: Textmagic REST Lists API
   description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
   termsOfService: https://www.textmagic.com/terms-of-service/
   contact:
@@ -142,29 +142,62 @@ paths:
         '204':
           description: Contacts were unassigned from the list.
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
   schemas:
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+    ContactListEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        membersCount:
+          type: integer
+        shared:
+          type: boolean
+    ContactList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+    ContactListList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
     Contact:
       type: object
       properties:
@@ -188,33 +221,14 @@ components:
             $ref: '#/components/schemas/ContactListEntity'
         blocked:
           type: boolean
-    Country:
+    ListContactsRequest:
       type: object
       properties:
-        id:
+        contacts:
           type: string
-        name:
-          type: string
-    ContactListList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactListEntity'
-    ResourceLink:
-      type: object
-      properties:
-        id:
-          type: integer
-        href:
-          type: string
+          description: Comma-separated list of contact IDs.
+      required:
+      - contacts
     ListRequest:
       type: object
       properties:
@@ -226,49 +240,35 @@ components:
           type: boolean
       required:
       - name
-    ContactList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contact'
-    ContactListEntity:
+    Country:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         name:
           type: string
-        description:
-          type: string
-        membersCount:
-          type: integer
-        shared:
-          type: boolean
-    ListContactsRequest:
-      type: object
-      properties:
-        contacts:
-          type: string
-          description: Comma-separated list of contact IDs.
-      required:
-      - contacts
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   responses:
     NotFound:
       description: The requested resource was not found.

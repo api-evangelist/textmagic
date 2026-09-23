@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Textmagic REST Bulk Chats API
+  title: Textmagic REST Chats API
   description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
   termsOfService: https://www.textmagic.com/terms-of-service/
   contact:
@@ -83,29 +83,16 @@ paths:
         '204':
           description: The chat status was updated.
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
     ChatStatusRequest:
       type: object
       properties:
@@ -118,6 +105,61 @@ components:
       required:
       - ids
       - status
+    ChatList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+    MessageList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    ContactListEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        membersCount:
+          type: integer
+        shared:
+          type: boolean
+    Chat:
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        contact:
+          $ref: '#/components/schemas/Contact'
+        unread:
+          type: integer
+        status:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
     Contact:
       type: object
       properties:
@@ -140,68 +182,6 @@ components:
           items:
             $ref: '#/components/schemas/ContactListEntity'
         blocked:
-          type: boolean
-    ChatList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Chat'
-    Country:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    MessageList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-    Chat:
-      type: object
-      properties:
-        id:
-          type: integer
-        phone:
-          type: string
-        contact:
-          $ref: '#/components/schemas/Contact'
-        unread:
-          type: integer
-        status:
-          type: string
-        updatedAt:
-          type: string
-          format: date-time
-    ContactListEntity:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        membersCount:
-          type: integer
-        shared:
           type: boolean
     Message:
       type: object
@@ -231,15 +211,35 @@ components:
           type: number
         partsCount:
           type: integer
-    Error:
+    Country:
       type: object
       properties:
-        message:
+        id:
           type: string
-        code:
-          type: integer
-        errors:
-          type: object
+        name:
+          type: string
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   responses:
     NotFound:
       description: The requested resource was not found.

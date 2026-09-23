@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Textmagic REST Bulk Replies API
+  title: Textmagic REST Replies API
   description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
   termsOfService: https://www.textmagic.com/terms-of-service/
   contact:
@@ -61,6 +61,43 @@ paths:
         '204':
           description: The inbound message was deleted.
 components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+    ReplyList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reply'
+    Reply:
+      type: object
+      properties:
+        id:
+          type: integer
+        sender:
+          type: string
+        messageTime:
+          type: string
+          format: date-time
+        text:
+          type: string
+        receiver:
+          type: string
   parameters:
     Limit:
       name: limit
@@ -83,43 +120,6 @@ components:
       schema:
         type: integer
       description: The resource identifier.
-  schemas:
-    Reply:
-      type: object
-      properties:
-        id:
-          type: integer
-        sender:
-          type: string
-        messageTime:
-          type: string
-          format: date-time
-        text:
-          type: string
-        receiver:
-          type: string
-    ReplyList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Reply'
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
   responses:
     NotFound:
       description: The requested resource was not found.

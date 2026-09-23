@@ -1,17 +1,7 @@
 {
   "provider": "textmagic",
   "sources": [
-    "textmagic-bulk-api-openapi.yml",
-    "textmagic-chats-api-openapi.yml",
-    "textmagic-contacts-api-openapi.yml",
-    "textmagic-lists-api-openapi.yml",
-    "textmagic-messages-api-openapi.yml",
-    "textmagic-numbers-api-openapi.yml",
-    "textmagic-replies-api-openapi.yml",
-    "textmagic-schedules-api-openapi.yml",
-    "textmagic-sender-ids-api-openapi.yml",
-    "textmagic-stats-api-openapi.yml",
-    "textmagic-templates-api-openapi.yml"
+    "_original/textmagic-openapi.yml"
   ],
   "outputs": [
     "textmagic-bulk-api-openapi.yml",
@@ -29,6 +19,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "textmagic-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "textmagic-bulk-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-chats-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-lists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-numbers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-replies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-schedules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-sender-ids-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-stats-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "textmagic-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

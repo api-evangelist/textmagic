@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Textmagic REST Bulk Messages API
+  title: Textmagic REST Messages API
   description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
   termsOfService: https://www.textmagic.com/terms-of-service/
   contact:
@@ -135,33 +135,28 @@ paths:
                 $ref: '#/components/schemas/MessagePrice'
 components:
   schemas:
-    MessagePrice:
+    Error:
       type: object
       properties:
-        total:
-          type: number
-        parts:
+        message:
+          type: string
+        code:
           type: integer
-        countries:
+        errors:
           type: object
-    SendMessageResponse:
+    MessageList:
       type: object
       properties:
-        id:
+        page:
           type: integer
-        href:
-          type: string
-        type:
-          type: string
-          description: Either "message", "session", or "scheduled".
-        sessionId:
+        limit:
           type: integer
-        bulkId:
+        pageCount:
           type: integer
-        messageId:
-          type: integer
-        scheduleId:
-          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
     SendMessageRequest:
       type: object
       properties:
@@ -188,19 +183,24 @@ components:
           description: Optional Unix timestamp to schedule the message.
       required:
       - text
-    MessageList:
+    SendMessageResponse:
       type: object
       properties:
-        page:
+        id:
           type: integer
-        limit:
+        href:
+          type: string
+        type:
+          type: string
+          description: Either "message", "session", or "scheduled".
+        sessionId:
           type: integer
-        pageCount:
+        bulkId:
           type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
+        messageId:
+          type: integer
+        scheduleId:
+          type: integer
     Message:
       type: object
       properties:
@@ -229,14 +229,14 @@ components:
           type: number
         partsCount:
           type: integer
-    Error:
+    MessagePrice:
       type: object
       properties:
-        message:
-          type: string
-        code:
+        total:
+          type: number
+        parts:
           type: integer
-        errors:
+        countries:
           type: object
   parameters:
     Limit:
@@ -246,13 +246,6 @@ components:
         type: integer
         default: 10
       description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
     IdPath:
       name: id
       in: path
@@ -260,9 +253,16 @@ components:
       schema:
         type: integer
       description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   responses:
-    Unauthorized:
-      description: Missing or invalid API credentials.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -273,8 +273,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid API credentials.
       content:
         application/json:
           schema:

@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Textmagic REST Bulk Stats API
+  title: Textmagic REST Stats API
   description: The Textmagic REST API (v2) provides programmatic access to the Textmagic business text-messaging platform. Send and receive SMS, manage contacts and lists, schedule and template messages, run two-way chats, and administer sender IDs and dedicated numbers. All requests are authenticated with the X-TM-Username and X-TM-Key headers.
   termsOfService: https://www.textmagic.com/terms-of-service/
   contact:
@@ -74,12 +74,24 @@ paths:
                     example: pong
 components:
   schemas:
-    Currency:
+    User:
       type: object
       properties:
         id:
+          type: integer
+        username:
           type: string
-        htmlSymbol:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        balance:
+          type: number
+        currency:
+          $ref: '#/components/schemas/Currency'
+        timezone:
+          type: object
+        email:
           type: string
     SpendingStats:
       type: object
@@ -108,24 +120,12 @@ components:
                 type: string
               value:
                 type: number
-    User:
+    Currency:
       type: object
       properties:
         id:
-          type: integer
-        username:
           type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        balance:
-          type: number
-        currency:
-          $ref: '#/components/schemas/Currency'
-        timezone:
-          type: object
-        email:
+        htmlSymbol:
           type: string
   securitySchemes:
     TmUsername:
