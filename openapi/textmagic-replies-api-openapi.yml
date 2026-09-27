@@ -71,19 +71,6 @@ components:
           type: integer
         errors:
           type: object
-    ReplyList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Reply'
     Reply:
       type: object
       properties:
@@ -98,14 +85,20 @@ components:
           type: string
         receiver:
           type: string
+    ReplyList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reply'
   parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
     Page:
       name: page
       in: query
@@ -113,6 +106,13 @@ components:
         type: integer
         default: 1
       description: Page number for pagination.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
     IdPath:
       name: id
       in: path

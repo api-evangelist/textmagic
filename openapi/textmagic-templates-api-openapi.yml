@@ -100,22 +100,6 @@ paths:
           description: The template was deleted.
 components:
   schemas:
-    ResourceLink:
-      type: object
-      properties:
-        id:
-          type: integer
-        href:
-          type: string
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
     Template:
       type: object
       properties:
@@ -128,6 +112,32 @@ components:
         lastModified:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
+    TemplateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+      required:
+      - name
+      - content
     TemplateList:
       type: object
       properties:
@@ -141,24 +151,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Template'
-    TemplateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        content:
-          type: string
-      required:
-      - name
-      - content
   parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
     IdPath:
       name: id
       in: path
@@ -173,6 +166,13 @@ components:
         type: integer
         default: 1
       description: Page number for pagination.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
   responses:
     NotFound:
       description: The requested resource was not found.

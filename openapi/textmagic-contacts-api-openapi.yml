@@ -124,13 +124,6 @@ paths:
                 $ref: '#/components/schemas/ContactList'
 components:
   schemas:
-    ResourceLink:
-      type: object
-      properties:
-        id:
-          type: integer
-        href:
-          type: string
     Error:
       type: object
       properties:
@@ -140,6 +133,26 @@ components:
           type: integer
         errors:
           type: object
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    ContactList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
     ContactListEntity:
       type: object
       properties:
@@ -176,19 +189,13 @@ components:
             $ref: '#/components/schemas/ContactListEntity'
         blocked:
           type: boolean
-    ContactList:
+    ResourceLink:
       type: object
       properties:
-        page:
+        id:
           type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contact'
+        href:
+          type: string
     ContactRequest:
       type: object
       properties:
@@ -208,14 +215,14 @@ components:
       required:
       - phone
       - lists
-    Country:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
   parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
     Limit:
       name: limit
       in: query
@@ -230,13 +237,6 @@ components:
       schema:
         type: integer
       description: The resource identifier.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
   responses:
     BadRequest:
       description: The request was malformed.

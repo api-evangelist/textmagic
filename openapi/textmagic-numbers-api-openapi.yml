@@ -99,13 +99,29 @@ paths:
           description: The dedicated number subscription was cancelled.
 components:
   schemas:
-    ResourceLink:
+    NumberList:
       type: object
       properties:
-        id:
+        page:
           type: integer
-        href:
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Number'
+    BuyNumberRequest:
+      type: object
+      properties:
+        phone:
           type: string
+        country:
+          type: string
+      required:
+      - phone
+      - country
     Error:
       type: object
       properties:
@@ -115,6 +131,13 @@ components:
           type: integer
         errors:
           type: object
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
     Number:
       type: object
       properties:
@@ -132,29 +155,13 @@ components:
           format: date-time
         status:
           type: string
-    BuyNumberRequest:
+    ResourceLink:
       type: object
       properties:
-        phone:
+        id:
+          type: integer
+        href:
           type: string
-        country:
-          type: string
-      required:
-      - phone
-      - country
-    NumberList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Number'
     AvailableNumbers:
       type: object
       properties:
@@ -164,14 +171,14 @@ components:
             type: string
         price:
           type: number
-    Country:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
   parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
     Limit:
       name: limit
       in: query
@@ -186,13 +193,6 @@ components:
       schema:
         type: integer
       description: The resource identifier.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
   responses:
     NotFound:
       description: The requested resource was not found.

@@ -143,13 +143,6 @@ paths:
           description: Contacts were unassigned from the list.
 components:
   schemas:
-    ResourceLink:
-      type: object
-      properties:
-        id:
-          type: integer
-        href:
-          type: string
     Error:
       type: object
       properties:
@@ -159,19 +152,21 @@ components:
           type: integer
         errors:
           type: object
-    ContactListEntity:
+    Country:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         name:
           type: string
-        description:
+    ListContactsRequest:
+      type: object
+      properties:
+        contacts:
           type: string
-        membersCount:
-          type: integer
-        shared:
-          type: boolean
+          description: Comma-separated list of contact IDs.
+      required:
+      - contacts
     ContactList:
       type: object
       properties:
@@ -185,6 +180,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Contact'
+    ContactListEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        membersCount:
+          type: integer
+        shared:
+          type: boolean
+    ListRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        shared:
+          type: boolean
+      required:
+      - name
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
     ContactListList:
       type: object
       properties:
@@ -221,33 +247,14 @@ components:
             $ref: '#/components/schemas/ContactListEntity'
         blocked:
           type: boolean
-    ListContactsRequest:
-      type: object
-      properties:
-        contacts:
-          type: string
-          description: Comma-separated list of contact IDs.
-      required:
-      - contacts
-    ListRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        shared:
-          type: boolean
-      required:
-      - name
-    Country:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
   parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
     Limit:
       name: limit
       in: query
@@ -262,13 +269,6 @@ components:
       schema:
         type: integer
       description: The resource identifier.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
   responses:
     NotFound:
       description: The requested resource was not found.
