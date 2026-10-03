@@ -98,46 +98,29 @@ paths:
         '204':
           description: The dedicated number subscription was cancelled.
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   schemas:
-    NumberList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Number'
-    BuyNumberRequest:
-      type: object
-      properties:
-        phone:
-          type: string
-        country:
-          type: string
-      required:
-      - phone
-      - country
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
-    Country:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
     Number:
       type: object
       properties:
@@ -155,6 +138,32 @@ components:
           format: date-time
         status:
           type: string
+    BuyNumberRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+        country:
+          type: string
+      required:
+      - phone
+      - country
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
     ResourceLink:
       type: object
       properties:
@@ -162,6 +171,19 @@ components:
           type: integer
         href:
           type: string
+    NumberList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Number'
     AvailableNumbers:
       type: object
       properties:
@@ -171,28 +193,6 @@ components:
             type: string
         price:
           type: number
-  parameters:
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
   responses:
     NotFound:
       description: The requested resource was not found.
