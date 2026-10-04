@@ -90,6 +90,13 @@ components:
       required:
       - senderId
       - explanation
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
     SenderIdList:
       type: object
       properties:
@@ -123,21 +130,7 @@ components:
           type: integer
         errors:
           type: object
-    ResourceLink:
-      type: object
-      properties:
-        id:
-          type: integer
-        href:
-          type: string
   parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
     IdPath:
       name: id
       in: path
@@ -145,6 +138,13 @@ components:
       schema:
         type: integer
       description: The resource identifier.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
     Page:
       name: page
       in: query

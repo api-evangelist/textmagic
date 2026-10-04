@@ -99,29 +99,14 @@ paths:
         '204':
           description: The template was deleted.
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
   schemas:
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
     Template:
       type: object
       properties:
@@ -134,32 +119,6 @@ components:
         lastModified:
           type: string
           format: date-time
-    TemplateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        content:
-          type: string
-      required:
-      - name
-      - content
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
-    ResourceLink:
-      type: object
-      properties:
-        id:
-          type: integer
-        href:
-          type: string
     TemplateList:
       type: object
       properties:
@@ -173,6 +132,47 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Template'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+    TemplateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+      required:
+      - name
+      - content
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   responses:
     NotFound:
       description: The requested resource was not found.

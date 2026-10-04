@@ -83,28 +83,6 @@ paths:
         '204':
           description: The chat status was updated.
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
   schemas:
     Message:
       type: object
@@ -134,19 +112,6 @@ components:
           type: number
         partsCount:
           type: integer
-    MessageList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
     ContactListEntity:
       type: object
       properties:
@@ -160,6 +125,35 @@ components:
           type: integer
         shared:
           type: boolean
+    ChatList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+    Chat:
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        contact:
+          $ref: '#/components/schemas/Contact'
+        unread:
+          type: integer
+        status:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
     Country:
       type: object
       properties:
@@ -202,16 +196,7 @@ components:
             $ref: '#/components/schemas/ContactListEntity'
         blocked:
           type: boolean
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
-    ChatList:
+    MessageList:
       type: object
       properties:
         page:
@@ -223,23 +208,38 @@ components:
         resources:
           type: array
           items:
-            $ref: '#/components/schemas/Chat'
-    Chat:
+            $ref: '#/components/schemas/Message'
+    Error:
       type: object
       properties:
-        id:
+        message:
+          type: string
+        code:
           type: integer
-        phone:
-          type: string
-        contact:
-          $ref: '#/components/schemas/Contact'
-        unread:
-          type: integer
-        status:
-          type: string
-        updatedAt:
-          type: string
-          format: date-time
+        errors:
+          type: object
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   responses:
     NotFound:
       description: The requested resource was not found.

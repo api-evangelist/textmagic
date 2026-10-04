@@ -123,29 +123,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/ContactList'
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
+  responses:
+    BadRequest:
+      description: The request was malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
     ContactListEntity:
       type: object
       properties:
@@ -159,6 +159,13 @@ components:
           type: integer
         shared:
           type: boolean
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
     Country:
       type: object
       properties:
@@ -166,6 +173,25 @@ components:
           type: string
         name:
           type: string
+    ContactRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        companyName:
+          type: string
+        lists:
+          type: string
+          description: Comma-separated list of list IDs to assign the contact to.
+      required:
+      - phone
+      - lists
     Contact:
       type: object
       properties:
@@ -189,41 +215,6 @@ components:
             $ref: '#/components/schemas/ContactListEntity'
         blocked:
           type: boolean
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
-    ContactRequest:
-      type: object
-      properties:
-        phone:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        companyName:
-          type: string
-        lists:
-          type: string
-          description: Comma-separated list of list IDs to assign the contact to.
-      required:
-      - phone
-      - lists
-    ResourceLink:
-      type: object
-      properties:
-        id:
-          type: integer
-        href:
-          type: string
     ContactList:
       type: object
       properties:
@@ -237,19 +228,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Contact'
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   securitySchemes:
     TmUsername:
       type: apiKey

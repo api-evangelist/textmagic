@@ -134,29 +134,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/MessagePrice'
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
   schemas:
+    MessagePrice:
+      type: object
+      properties:
+        total:
+          type: number
+        parts:
+          type: integer
+        countries:
+          type: object
     Message:
       type: object
       properties:
@@ -185,37 +172,6 @@ components:
           type: number
         partsCount:
           type: integer
-    MessageList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-    MessagePrice:
-      type: object
-      properties:
-        total:
-          type: number
-        parts:
-          type: integer
-        countries:
-          type: object
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
     SendMessageRequest:
       type: object
       properties:
@@ -260,9 +216,31 @@ components:
           type: integer
         scheduleId:
           type: integer
+    MessageList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
   responses:
-    Unauthorized:
-      description: Missing or invalid API credentials.
+    BadRequest:
+      description: The request was malformed.
       content:
         application/json:
           schema:
@@ -273,12 +251,34 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed.
+    Unauthorized:
+      description: Missing or invalid API credentials.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
   securitySchemes:
     TmUsername:
       type: apiKey
