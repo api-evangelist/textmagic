@@ -51,7 +51,38 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
     BulkSession:
       type: object
       properties:
@@ -81,37 +112,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BulkSession'
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
-  parameters:
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
   responses:
     NotFound:
       description: The requested resource was not found.

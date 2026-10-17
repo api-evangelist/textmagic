@@ -142,6 +142,28 @@ paths:
         '204':
           description: Contacts were unassigned from the list.
 components:
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
   schemas:
     ListContactsRequest:
       type: object
@@ -160,57 +182,6 @@ components:
           type: integer
         errors:
           type: object
-    ContactListEntity:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        membersCount:
-          type: integer
-        shared:
-          type: boolean
-    ResourceLink:
-      type: object
-      properties:
-        id:
-          type: integer
-        href:
-          type: string
-    Country:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    ContactListList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactListEntity'
-    ListRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        shared:
-          type: boolean
-      required:
-      - name
     Contact:
       type: object
       properties:
@@ -234,6 +205,26 @@ components:
             $ref: '#/components/schemas/ContactListEntity'
         blocked:
           type: boolean
+    ContactListEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        membersCount:
+          type: integer
+        shared:
+          type: boolean
+    ResourceLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        href:
+          type: string
     ContactList:
       type: object
       properties:
@@ -247,28 +238,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Contact'
-  parameters:
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
+    ListRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        shared:
+          type: boolean
+      required:
+      - name
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    ContactListList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
   responses:
     NotFound:
       description: The requested resource was not found.

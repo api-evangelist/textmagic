@@ -84,6 +84,80 @@ paths:
           description: The chat status was updated.
 components:
   schemas:
+    Chat:
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        contact:
+          $ref: '#/components/schemas/Contact'
+        unread:
+          type: integer
+        status:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    ChatList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+    MessageList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        companyName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
+        blocked:
+          type: boolean
     Message:
       type: object
       properties:
@@ -112,6 +186,18 @@ components:
           type: number
         partsCount:
           type: integer
+    ChatStatusRequest:
+      type: object
+      properties:
+        ids:
+          type: string
+          description: Comma-separated list of chat IDs.
+        status:
+          type: string
+          description: Target status, e.g. open or closed.
+      required:
+      - ids
+      - status
     ContactListEntity:
       type: object
       properties:
@@ -125,35 +211,6 @@ components:
           type: integer
         shared:
           type: boolean
-    ChatList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Chat'
-    Chat:
-      type: object
-      properties:
-        id:
-          type: integer
-        phone:
-          type: string
-        contact:
-          $ref: '#/components/schemas/Contact'
-        unread:
-          type: integer
-        status:
-          type: string
-        updatedAt:
-          type: string
-          format: date-time
     Country:
       type: object
       properties:
@@ -161,63 +218,6 @@ components:
           type: string
         name:
           type: string
-    ChatStatusRequest:
-      type: object
-      properties:
-        ids:
-          type: string
-          description: Comma-separated list of chat IDs.
-        status:
-          type: string
-          description: Target status, e.g. open or closed.
-      required:
-      - ids
-      - status
-    Contact:
-      type: object
-      properties:
-        id:
-          type: integer
-        firstName:
-          type: string
-        lastName:
-          type: string
-        companyName:
-          type: string
-        phone:
-          type: string
-        email:
-          type: string
-        country:
-          $ref: '#/components/schemas/Country'
-        lists:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactListEntity'
-        blocked:
-          type: boolean
-    MessageList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
   parameters:
     IdPath:
       name: id
@@ -226,13 +226,6 @@ components:
       schema:
         type: integer
       description: The resource identifier.
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
     Page:
       name: page
       in: query
@@ -240,6 +233,13 @@ components:
         type: integer
         default: 1
       description: Page number for pagination.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
   responses:
     NotFound:
       description: The requested resource was not found.

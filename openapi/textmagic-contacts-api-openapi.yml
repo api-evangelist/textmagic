@@ -123,6 +123,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/ContactList'
 components:
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: The resource identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Page number for pagination.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
   responses:
     BadRequest:
       description: The request was malformed.
@@ -146,6 +168,29 @@ components:
           type: integer
         errors:
           type: object
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        companyName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactListEntity'
+        blocked:
+          type: boolean
     ContactListEntity:
       type: object
       properties:
@@ -166,6 +211,19 @@ components:
           type: integer
         href:
           type: string
+    ContactList:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        pageCount:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
     Country:
       type: object
       properties:
@@ -192,64 +250,6 @@ components:
       required:
       - phone
       - lists
-    Contact:
-      type: object
-      properties:
-        id:
-          type: integer
-        firstName:
-          type: string
-        lastName:
-          type: string
-        companyName:
-          type: string
-        phone:
-          type: string
-        email:
-          type: string
-        country:
-          $ref: '#/components/schemas/Country'
-        lists:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactListEntity'
-        blocked:
-          type: boolean
-    ContactList:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        pageCount:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contact'
-  parameters:
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-      description: The resource identifier.
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-      description: Page number for pagination.
   securitySchemes:
     TmUsername:
       type: apiKey

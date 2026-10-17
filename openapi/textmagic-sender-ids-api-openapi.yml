@@ -80,6 +80,17 @@ paths:
           description: The sender ID was deleted.
 components:
   schemas:
+    SenderId:
+      type: object
+      properties:
+        id:
+          type: integer
+        senderId:
+          type: string
+        user:
+          type: integer
+        status:
+          type: string
     SenderIdRequest:
       type: object
       properties:
@@ -90,6 +101,15 @@ components:
       required:
       - senderId
       - explanation
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+        errors:
+          type: object
     ResourceLink:
       type: object
       properties:
@@ -110,26 +130,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SenderId'
-    SenderId:
-      type: object
-      properties:
-        id:
-          type: integer
-        senderId:
-          type: string
-        user:
-          type: integer
-        status:
-          type: string
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-        errors:
-          type: object
   parameters:
     IdPath:
       name: id
@@ -138,13 +138,6 @@ components:
       schema:
         type: integer
       description: The resource identifier.
-    Limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-      description: Number of items per page.
     Page:
       name: page
       in: query
@@ -152,6 +145,13 @@ components:
         type: integer
         default: 1
       description: Page number for pagination.
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page.
   responses:
     NotFound:
       description: The requested resource was not found.

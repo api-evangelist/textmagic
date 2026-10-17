@@ -74,24 +74,12 @@ paths:
                     example: pong
 components:
   schemas:
-    User:
+    Currency:
       type: object
       properties:
         id:
-          type: integer
-        username:
           type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        balance:
-          type: number
-        currency:
-          $ref: '#/components/schemas/Currency'
-        timezone:
-          type: object
-        email:
+        htmlSymbol:
           type: string
     SpendingStats:
       type: object
@@ -120,12 +108,24 @@ components:
                 type: string
               value:
                 type: number
-    Currency:
+    User:
       type: object
       properties:
         id:
+          type: integer
+        username:
           type: string
-        htmlSymbol:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        balance:
+          type: number
+        currency:
+          $ref: '#/components/schemas/Currency'
+        timezone:
+          type: object
+        email:
           type: string
   securitySchemes:
     TmUsername:
