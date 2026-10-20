@@ -1,11 +1,103 @@
-generated: '2026-10-14'
+generated: '2026-10-20'
 method: searched
+source:
+- okta/integrations/okta-integration-edges.yml
+- https://zapier.com/apps/textmagic/integrations
+- https://n8n.io/integrations/textmagic/
 checked:
 - https://zapier.com/api/v4/apps/
 - okta/integrations/okta-integration-edges.yml
 - shopify/integrations/shopify-integration-edges.yml
-source:
-- okta/integrations/okta-integration-edges.yml
+- https://composio.dev/toolkits/textmagic
+- https://monid.ai/tools/textmagic
+- https://n8n.io/integrations/textmagic/
+- https://zapier.com/apps/textmagic/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: textmagic
+  url: https://zapier.com/apps/textmagic/integrations
+  external_url: https://www.textmagic.com/
+  partner_tier: GOLD
+  triggers:
+  - key: chat_updated
+    label: Chat Updated
+  - key: contact_added_to_list
+    label: Contact Added to List
+  - key: new_chat
+    label: New Chat
+  - key: new_deal
+    label: New Deal
+  - key: new_incoming_call
+    label: New Incoming Call
+  - key: new_incoming_call_copy
+    label: New Missed Call
+  - key: new_incoming_message_trigger
+    label: New Incoming Message
+  - key: new_task
+    label: New Task
+  - key: new_ticket
+    label: New Ticket
+  - key: new_unsubscriber_trigger
+    label: New Unsubscriber
+  - key: tag_added_to_contact
+    label: Tag Added to Contact
+  - key: task_updated
+    label: Task Updated
+  - key: ticket_updated
+    label: Ticket Updated
+  actions:
+  - key: add_contact
+    label: Create Contact
+  - key: add_contact_to_list
+    label: Add Contact to List
+  - key: add_list
+    label: Create List
+  - key: add_tags_to_contact
+    label: Add Tags to Contact
+  - key: assign_chat
+    label: Assign Chat
+  - key: assign_contact
+    label: Assign Contact
+  - key: assign_task
+    label: Assign Task
+  - key: create_deal
+    label: Create Deal
+  - key: create_email_campaign
+    label: Send Email Campaign
+  - key: create_task
+    label: Create Task
+  - key: create_ticket
+    label: Create Ticket
+  - key: deal_change_assignee
+    label: Assign Deal
+  - key: delete_contact_from_list
+    label: Remove Contact From List
+  - key: edit_forwarding_number
+    label: Change Forwarding Number
+  - key: lookup_carrier
+    label: Look Up Phone Number
+  - key: lookup_email
+    label: Look Up Email
+  - key: send_message
+    label: Send SMS
+  - key: set_contact_custom_field_value
+    label: Set Custom Field Value
+  - key: _zap_raw_request
+    label: API Request (Beta)
+  searches:
+  - key: find_contact
+    label: Find Contact
+  - key: find_list
+    label: Find List
+- marketplace: n8n
+  channel: open-source-node
+  app: textmagic
+  url: https://n8n.io/integrations/textmagic/
+  identity: title
+  pair_pages: 0
+  pairs: []
 edges:
 - partner_name: Okta (own)
   partner: okta
@@ -69,3 +161,425 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Facebook Lead Ads
+  partner: facebook-lead-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/facebook-lead-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://www.facebook.com/business/ads/lead-ads
+- partner_name: Google Forms (Legacy)
+  partner: google-forms
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/google-forms-legacy
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://google.com/
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: Cognito Forms
+  partner: cognito-forms
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/cognito-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.cognitoforms.com/
+- partner_name: POWR Form Builder
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/powr-form-builder
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.powr.io/plugins/form-builder
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: Filevine
+  partner: filevine
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/filevine
+  direction: third-party
+  category: Project Management
+  partner_url: https://vineskills.com/filevine-zapier?utm_campaign=zapier_app_directory&utm_medium=organic&utm_source=zapier
+- partner_name: MightyForms
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/mightyforms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.mightyforms.com/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Marketo
+  partner: marketo
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/marketo
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://marketo.com/
+- partner_name: LeadQuizzes 3
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/leadquizzes3
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.leadquizzes.com/
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: CallRail
+  partner: callrail
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/callrail
+  direction: third-party
+  category: Call Tracking
+  partner_url: https://www.callrail.com/?utm_medium=strategicpartner&utm_source=zapier&utm_campaign=app_listing&utm_content=app_listing
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: Jotform
+  partner: jotform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/jotform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://www.jotform.com/
+- partner_name: Convertri
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/convertri
+  direction: third-party
+  category: Website Builders
+  partner_url: https://www.convertri.com/
+- partner_name: Acuity Scheduling
+  partner: acuity-scheduling
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/acuity-scheduling
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://acuityscheduling.com/?utm_source=zapier.com&utm_medium=referral&utm_campaign=integration-page
+- partner_name: SimpleTexting
+  partner: simpletexting
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/simpletexting
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://simpletexting.com/
+- partner_name: Google Ads
+  partner: google-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/google-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://ads.google.com/
+- partner_name: Adalo
+  partner: adalo
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/adalo
+  direction: third-party
+  category: App Builder
+  partner_url: https://www.adalo.com/?utm_campaign=zapier_profile
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: monday.com
+  partner: monday-com
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/monday
+  direction: third-party
+  category: Project Management
+  partner_url: https://monday.com/
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: Wix
+  partner: wix
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/wix
+  direction: third-party
+  category: Website Builders
+  partner_url: https://www.wix.com/
+- partner_name: Novi AMS
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/novi-ams
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.noviams.com/
+- partner_name: Calendly
+  partner: calendly
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/calendly
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://calendly.com/?utm_medium=partner&utm_source=zapier&utm_campaign=main_partner_page&utm_content=main_inbound_link
+- partner_name: Kajabi
+  partner: kajabi
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/kajabi
+  direction: third-party
+  category: eCommerce
+  partner_url: http://kajabi.com/
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/typeform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.typeform.com/signup?utm_medium=referral&utm_source=zapier&utm_campaign=zapier_integration&utm_content=marketplace
+- partner_name: Trello
+  partner: trello
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/trello
+  direction: third-party
+  category: Project Management
+  partner_url: https://trello.com/
+- partner_name: Resource Guru
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/textmagic/integrations/resource-guru
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: http://resourceguruapp.com/
+templates:
+- title: Post TextMagic SMS messages to Slack
+  url: https://zapier.com/apps/slack/integrations/textmagic/14252/post-textmagic-sms-messages-to-slack
+  apps:
+  - textmagic
+  - slack
+- title: Get your TextMagic SMS messages in your email inbox
+  url: https://zapier.com/apps/email/integrations/textmagic/14250/get-your-textmagic-sms-messages-in-your-email-inbox
+  apps:
+  - textmagic
+  - email
+- title: Get SMS notifications for upcoming events on Google Calendar
+  url: https://zapier.com/apps/google-calendar/integrations/textmagic/13061/get-sms-notifications-for-upcoming-events-on-google-calendar
+  apps:
+  - google-calendar
+  - textmagic
+- title: Send text messages to new people on Pipedrive
+  url: https://zapier.com/apps/pipedrive/integrations/textmagic/13059/send-text-messages-to-new-people-on-pipedrive
+  apps:
+  - pipedrive
+  - textmagic
+- title: Send TextMagic SMS messages to follow up on feedback sent via Typeform
+  url: https://zapier.com/apps/textmagic/integrations/typeform/14246/send-textmagic-sms-messages-to-follow-up-on-feedback-sent-via-typeform
+  apps:
+  - typeform
+  - textmagic
+- title: Add new Jotform submissions to TextMagic SMS contact list
+  url: https://zapier.com/apps/jotform/integrations/textmagic/1316893/add-new-jotform-submissions-to-textmagic-sms-contact-list
+  apps:
+  - jotform
+  - textmagic
+- title: Send sms notifications via TextMagic SMS when specific column values change in monday.com boards
+  url: https://zapier.com/apps/monday/integrations/textmagic/1226389/send-sms-notifications-via-textmagic-sms-when-specific-column-values-change-in-mondaycom-boards
+  apps:
+  - monday
+  - textmagic
+- title: Get SMS alerts via TextMagic before Google Calendar events begin
+  url: https://zapier.com/apps/google-calendar/integrations/textmagic/14241/get-sms-alerts-via-textmagic-before-google-calendar-events-begin
+  apps:
+  - google-calendar
+  - textmagic
+- title: Send sms messages via TextMagic SMS for new rows in Google Sheets
+  url: https://zapier.com/apps/google-sheets/integrations/textmagic/1215290/send-sms-messages-via-textmagic-sms-for-new-rows-in-google-sheets
+  apps:
+  - google-sheets
+  - textmagic
+- title: Send sms notifications for new Jotform submissions via TextMagic SMS
+  url: https://zapier.com/apps/jotform/integrations/textmagic/1282576/send-sms-notifications-for-new-jotform-submissions-via-textmagic-sms
+  apps:
+  - jotform
+  - textmagic
+- title: Add contacts on TextMagic for new Google Ads leads
+  url: https://zapier.com/apps/google-ads/integrations/textmagic/543177/add-contacts-on-textmagic-for-new-google-ads-leads
+  apps:
+  - google-ads
+  - textmagic
+- title: Send Slack channel messages for new incoming messages in TextMagic
+  url: https://zapier.com/apps/slack/integrations/textmagic/223789/send-slack-channel-messages-for-new-incoming-messages-in-textmagic
+  apps:
+  - textmagic
+  - slack
+template_total: 406
