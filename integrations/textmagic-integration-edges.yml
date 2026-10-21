@@ -12,6 +12,7 @@ checked:
 - https://monid.ai/tools/textmagic
 - https://n8n.io/integrations/textmagic/
 - https://zapier.com/apps/textmagic/integrations
+- hubspot/integrations/hubspot-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -99,43 +100,6 @@ marketplace_apps:
   pair_pages: 0
   pairs: []
 edges:
-- partner_name: Okta (own)
-  partner: okta
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.okta.com/integrations/textmagic/
-  mirror_of: okta/integrations/okta-integration-edges.yml
-  apps:
-  - TextMagic
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Single Sign-On
-  badges:
-  - OKTA_VERIFIED
-  features:
-  - SAML
-- partner_name: Shopify (own)
-  partner: shopify
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://apps.shopify.com/textmagic-sms
-  mirror_of: shopify/integrations/shopify-integration-edges.yml
-  apps:
-  - 'Textmagic: SMS & Email'
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
 - partner_name: Zapier
   partner: zapier
   partner_match: aggregator
@@ -521,6 +485,60 @@ edges:
   direction: third-party
   category: Scheduling & Booking
   partner_url: http://resourceguruapp.com/
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/textmagic/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - TextMagic
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - SAML
+- partner_name: Shopify (own)
+  partner: shopify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.shopify.com/textmagic-sms
+  mirror_of: shopify/integrations/shopify-integration-edges.yml
+  apps:
+  - 'Textmagic: SMS & Email'
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+- partner_name: HubSpot (own)
+  partner: hubspot
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://ecosystem.hubspot.com/marketplace/listing/textmagic
+  mirror_of: hubspot/integrations/hubspot-integration-edges.yml
+  apps:
+  - Textmagic
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: SMS
 templates:
 - title: Post TextMagic SMS messages to Slack
   url: https://zapier.com/apps/slack/integrations/textmagic/14252/post-textmagic-sms-messages-to-slack
