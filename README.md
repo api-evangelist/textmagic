@@ -1,4 +1,4 @@
-# Textmagic (textmagic)
+# Textmagic
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,179 +66,144 @@
 
 Textmagic is a business text-messaging platform offering two-way SMS, bulk messaging, SMS marketing, and team inboxes. Its REST API (v2) lets developers send and receive messages, manage contacts and lists, schedule and template messages, and administer sender IDs and dedicated numbers programmatically over HTTPS.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/textmagic/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/textmagic/refs/heads/main/apis.yml)
+**Areas:** SMS · Text Messaging · Messaging · Communications · CPaaS
 
-## Tags
+## Textmagic on APIs.io
 
-- SMS
-- Text Messaging
-- Messaging
-- Communications
-- CPaaS
+Everything profiled for Textmagic is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/textmagic/](https://apis.io/providers/textmagic/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (11)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Textmagic Bulk API](https://apis.io/apis/textmagic/textmagic-bulk-api/) — Track bulk send sessions.
+- [Textmagic Chats API](https://apis.io/apis/textmagic/textmagic-chats-api/) — Manage two-way conversations.
+- [Textmagic Contacts API](https://apis.io/apis/textmagic/textmagic-contacts-api/) — Manage contacts in the address book.
+- [Textmagic Lists API](https://apis.io/apis/textmagic/textmagic-lists-api/) — Manage contact lists.
+- [Textmagic Messages API](https://apis.io/apis/textmagic/textmagic-messages-api/) — Send and manage outbound SMS messages.
+- [Textmagic Numbers API](https://apis.io/apis/textmagic/textmagic-numbers-api/) — Find and manage dedicated virtual numbers.
+- [Textmagic Replies API](https://apis.io/apis/textmagic/textmagic-replies-api/) — Retrieve and manage inbound messages.
+- [Textmagic Schedules API](https://apis.io/apis/textmagic/textmagic-schedules-api/) — Manage scheduled (future-dated) messages.
+- [Textmagic Sender IDs API](https://apis.io/apis/textmagic/textmagic-sender-ids-api/) — Apply for and manage alphanumeric sender IDs.
+- [Textmagic Stats API](https://apis.io/apis/textmagic/textmagic-stats-api/) — Account, usage, and spending statistics.
+- [Textmagic Templates API](https://apis.io/apis/textmagic/textmagic-templates-api/) — Manage reusable message templates.
 
-## APIs
+### Published properties
 
-### Textmagic Messages API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Send single or templated SMS messages, list and search sent messages, preview and price messages, upload attachments, and delete outbound messages.
+#### MCP servers (1)
 
-- **Human URL:** [https://docs.textmagic.com/](https://docs.textmagic.com/)
-- **Base URL:** `https://rest.textmagic.com/api/v2`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [textmagic](https://apis.io/servers/textmagic/textmagic/)
 
-- Messages
-- SMS
-- Send
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://www.textmagic.com/docs/api/send-sms/)
-- [API Reference](https://docs.textmagic.com/)
-- [OpenAPI](openapi/textmagic-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/textmagic.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/textmagic.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Textmagic Agentic Access](https://apis.io/agentic-access/textmagic/textmagic-agentic-access/)
 
-### Textmagic Bulk Messaging API
+#### Collections (12)
 
-Track large send operations through bulk sessions and messaging sessions, retrieve session status, statistics, and the messages each session generated.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.textmagic.com/](https://docs.textmagic.com/)
-- **Base URL:** `https://rest.textmagic.com/api/v2`
+- [Textmagic REST API](https://apis.io/collections/textmagic/open-textmagic/)
+- [Textmagic REST Bulk API](https://apis.io/collections/textmagic/open-textmagic-bulk-api/)
+- [Textmagic REST Bulk Chats API](https://apis.io/collections/textmagic/open-textmagic-chats-api/)
+- [Textmagic REST Bulk Contacts API](https://apis.io/collections/textmagic/open-textmagic-contacts-api/)
+- [Textmagic REST Bulk Lists API](https://apis.io/collections/textmagic/open-textmagic-lists-api/)
+- [Textmagic REST Bulk Messages API](https://apis.io/collections/textmagic/open-textmagic-messages-api/)
+- [Textmagic REST Bulk Numbers API](https://apis.io/collections/textmagic/open-textmagic-numbers-api/)
+- [Textmagic REST Bulk Replies API](https://apis.io/collections/textmagic/open-textmagic-replies-api/)
+- [Textmagic REST Bulk Schedules API](https://apis.io/collections/textmagic/open-textmagic-schedules-api/)
+- [Textmagic REST Bulk Sender IDs API](https://apis.io/collections/textmagic/open-textmagic-sender-ids-api/)
+- [Textmagic REST Bulk Stats API](https://apis.io/collections/textmagic/open-textmagic-stats-api/)
+- [Textmagic REST Bulk Templates API](https://apis.io/collections/textmagic/open-textmagic-templates-api/)
 
-#### Tags
+#### Security (2)
 
-- Bulk
-- Sessions
-- Campaigns
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Textmagic Authentication](https://apis.io/security/textmagic/textmagic-authentication/)
+- [Textmagic Domain Security](https://apis.io/security/textmagic/textmagic-domain-security/)
 
-- [Documentation](https://docs.textmagic.com/)
-- [API Reference](https://docs.textmagic.com/)
-- [OpenAPI](openapi/textmagic-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/textmagic.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/textmagic.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Textmagic Chats and Replies API
+Published plans, tiers and prices.
 
-Manage two-way conversations - list, search, open, close, mute, and read chats - and retrieve, search, and delete inbound reply messages.
+- [Textmagic Plans Pricing](https://apis.io/plans/textmagic/textmagic-plans-pricing/)
 
-- **Human URL:** [https://docs.textmagic.com/](https://docs.textmagic.com/)
-- **Base URL:** `https://rest.textmagic.com/api/v2`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Chats
-- Replies
-- Inbound
+- [Textmagic Rate Limits](https://apis.io/rate-limits/textmagic/textmagic-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://docs.textmagic.com/)
-- [API Reference](https://docs.textmagic.com/)
-- [OpenAPI](openapi/textmagic-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/textmagic.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/textmagic.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Textmagic Contacts and Lists API
+- [Textmagic Finops](https://apis.io/finops/textmagic/textmagic-finops/)
 
-Create, read, update, delete, search, and import contacts; organize them into lists; and manage contact list membership, blocking, and unsubscribes.
+## Where to find this API
 
-- **Human URL:** [https://docs.textmagic.com/](https://docs.textmagic.com/)
-- **Base URL:** `https://rest.textmagic.com/api/v2`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Contacts
-- Lists
-- Address Book
-
-#### Properties
-
-- [Documentation](https://docs.textmagic.com/)
-- [API Reference](https://docs.textmagic.com/)
-- [OpenAPI](openapi/textmagic-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/textmagic.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/textmagic.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Textmagic Templates API
-
-Create, read, update, delete, and search reusable message templates for consistent outbound messaging.
-
-- **Human URL:** [https://docs.textmagic.com/](https://docs.textmagic.com/)
-- **Base URL:** `https://rest.textmagic.com/api/v2`
-
-#### Tags
-
-- Templates
-- Reusable Content
-
-#### Properties
-
-- [Documentation](https://docs.textmagic.com/)
-- [API Reference](https://docs.textmagic.com/)
-- [OpenAPI](openapi/textmagic-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/textmagic.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/textmagic.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Textmagic Scheduled Messages API
-
-List, retrieve, search, and delete scheduled (future-dated) messages queued for delivery.
-
-- **Human URL:** [https://docs.textmagic.com/](https://docs.textmagic.com/)
-- **Base URL:** `https://rest.textmagic.com/api/v2`
-
-#### Tags
-
-- Schedules
-- Scheduled Messages
-
-#### Properties
-
-- [Documentation](https://docs.textmagic.com/)
-- [API Reference](https://docs.textmagic.com/)
-- [OpenAPI](openapi/textmagic-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/textmagic.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/textmagic.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Textmagic Sender IDs and Numbers API
-
-Apply for and manage alphanumeric sender IDs, find and purchase dedicated virtual numbers, and configure sender settings and available sources.
-
-- **Human URL:** [https://docs.textmagic.com/](https://docs.textmagic.com/)
-- **Base URL:** `https://rest.textmagic.com/api/v2`
-
-#### Tags
-
-- Sender IDs
-- Dedicated Numbers
-- Sender Settings
-
-#### Properties
-
-- [Documentation](https://docs.textmagic.com/)
-- [API Reference](https://docs.textmagic.com/)
-- [OpenAPI](openapi/textmagic-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/textmagic.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/textmagic.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/textmagic)
-- [LinkedIn](https://www.linkedin.com/company/textmagic)
 - [Website](https://www.textmagic.com)
 - [Documentation](https://docs.textmagic.com/)
-- [Plans](plans/textmagic-plans-pricing.yml)
-- [Rate Limits](rate-limits/textmagic-rate-limits.yml)
-- [Fin Ops](finops/textmagic-finops.yml)
+- [Blog](https://www.textmagic.com/blog/feed/)
+- [GitHub](https://github.com/textmagic)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.1** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 48.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 48.1** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 10.0** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/textmagic/](https://apis.io/providers/textmagic/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Textmagic: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/textmagic/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
